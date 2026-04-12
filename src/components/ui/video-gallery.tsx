@@ -89,7 +89,7 @@ function VideoCard({
   onClick: () => void
   index: number
 }) {
-  const src = `/src/assets/videos/${project.file}`
+  const src = `https://pub-340c09903d0b49fea4aec85224bcb1bb.r2.dev/${project.file}`
   const poster = usePoster(src)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hovered, setHovered] = useState(false)
@@ -185,7 +185,7 @@ function Lightbox({
         <video
           key={project.file}
           className="vg-lb-video"
-          src={`/src/assets/videos/${project.file}`}
+          src={`https://pub-340c09903d0b49fea4aec85224bcb1bb.r2.dev/${project.file}`}
           controls
           autoPlay
           playsInline
