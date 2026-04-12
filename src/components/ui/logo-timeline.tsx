@@ -76,7 +76,7 @@ export function LogoTimeline({
               <div
                 className="absolute inset-x-0 top-1/2 h-px"
                 style={{
-                  backgroundImage: "repeating-linear-gradient(90deg, rgba(167,139,250,0.18) 0, rgba(167,139,250,0.18) 6px, transparent 6px, transparent 12px)",
+                  backgroundImage: "repeating-linear-gradient(90deg, rgba(0,229,255,0.18) 0, rgba(0,229,255,0.18) 6px, transparent 6px, transparent 12px)",
                 }}
               />
               {/* row separator */}
@@ -84,7 +84,7 @@ export function LogoTimeline({
                 <div
                   className="absolute inset-x-0 bottom-0 h-px group-last:hidden"
                   style={{
-                    backgroundImage: "repeating-linear-gradient(90deg, rgba(167,139,250,0.07) 0, rgba(167,139,250,0.07) 6px, transparent 6px, transparent 12px)",
+                    backgroundImage: "repeating-linear-gradient(90deg, rgba(0,229,255,0.07) 0, rgba(0,229,255,0.07) 6px, transparent 6px, transparent 12px)",
                   }}
                 />
               )}
@@ -95,9 +95,9 @@ export function LogoTimeline({
                   className="absolute top-1/2 flex -translate-y-1/2 items-center gap-2 px-3 py-1.5 whitespace-nowrap rounded-full backdrop-blur-sm"
                   style={{
                     /* dark pill */
-                    background: "linear-gradient(to top, rgba(15,10,30,0.85), rgba(25,15,50,0.80))",
-                    border: "1px solid rgba(139,92,246,0.25)",
-                    boxShadow: "0 0 12px rgba(139,92,246,0.12), inset 0 1px 0 rgba(255,255,255,0.05)",
+                    background: "linear-gradient(to top, rgba(5,10,15,0.85), rgba(10,15,20,0.80))",
+                    border: "1px solid rgba(0,229,255,0.25)",
+                    boxShadow: "0 0 12px rgba(0,229,255,0.12), inset 0 1px 0 rgba(255,255,255,0.05)",
                     /* move-x animation via CSS keyframe defined in index.css */
                     animationName: "move-x",
                     animationTimingFunction: "linear",
@@ -109,7 +109,7 @@ export function LogoTimeline({
                     ["--move-x-to" as string]: "calc(100% + 100vw)",
                   }}
                 >
-                  <span className="flex items-center" style={{ color: "#a78bfa", opacity: 0.9 }}>
+                  <span className="flex items-center" style={{ color: "#00E5FF", opacity: 0.9 }}>
                     {logo.icon}
                   </span>
                   <span style={{ color: "#e2e8f0", fontSize: 13, fontWeight: 500, letterSpacing: "0.02em" }}>

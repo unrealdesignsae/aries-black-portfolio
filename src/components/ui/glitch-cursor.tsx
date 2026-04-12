@@ -207,7 +207,7 @@ const GlitchCursor = ({
           {title && (
             <h1
               className={`m-0 p-0 text-cyan-300 font-bold uppercase tracking-widest leading-none ${titleSize}`}
-              style={{ textShadow: "2px 2px 0px #ff00ff, -2px -2px 0px #00ffff" }}
+              style={{ textShadow: "2px 2px 0px #00E5FF, -2px -2px 0px #00ffff" }}
             >
               {title}
             </h1>
@@ -215,7 +215,7 @@ const GlitchCursor = ({
           {subtitle && (
             <h2
               className={`m-0 p-0 text-gray-300 font-normal leading-none ${subtitleSize}`}
-              style={{ textShadow: "1px 1px 0px #ff00ff, -1px -1px 0px #00ffff" }}
+              style={{ textShadow: "1px 1px 0px #00E5FF, -1px -1px 0px #00ffff" }}
             >
               {subtitle}
             </h2>

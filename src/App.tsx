@@ -84,8 +84,8 @@ const softwareItems: LogoItem[] = [
   { row: 2, label: 'Lumion',          icon: <Layers size={16} />,                      animationDelay: -20,  animationDuration: 60 },
   // Row 3 — Adobe Creative (using Lucide fallbacks — SI CDN slugs for Adobe vary by version)
   { row: 3, label: 'Photoshop',     icon: <Film size={16} style={{ color: '#31A8FF' }} />,     animationDelay: -50,   animationDuration: 50 },
-  { row: 3, label: 'After Effects', icon: <Sparkles size={16} style={{ color: '#9999FF' }} />, animationDelay: -33.3, animationDuration: 50 },
-  { row: 3, label: 'Premiere Pro',  icon: <Layers size={16} style={{ color: '#9999FF' }} />,   animationDelay: -16.7, animationDuration: 50 },
+  { row: 3, label: 'After Effects', icon: <Sparkles size={16} style={{ color: '#00E5FF' }} />, animationDelay: -33.3, animationDuration: 50 },
+  { row: 3, label: 'Premiere Pro',  icon: <Layers size={16} style={{ color: '#00E5FF' }} />,   animationDelay: -16.7, animationDuration: 50 },
   // Row 4 — CAD & Architecture
   { row: 4, label: 'AutoCAD', icon: <SI slug="autodesk" label="AutoCAD" />, animationDelay: -48, animationDuration: 48 },
   { row: 4, label: 'Revit',   icon: <Ruler size={16} />,                    animationDelay: -32, animationDuration: 48 },
@@ -379,10 +379,10 @@ function App() {
           ].map(w => (
             <div key={w.label} className="reveal" style={{
               padding: '1rem',
-              borderTop: '1px solid rgba(167,139,250,0.25)',
+              borderTop: '1px solid rgba(0,229,255,0.25)',
             }}>
               <p style={{ margin: 0, fontWeight: 600, fontSize: 13, color: '#e2e8f0', lineHeight: 1.4 }}>{w.label}</p>
-              <p style={{ margin: '4px 0 0', fontSize: 11, color: 'rgba(167,139,250,0.7)', fontFamily: 'monospace' }}>{w.desc}</p>
+              <p style={{ margin: '4px 0 0', fontSize: 11, color: 'rgba(0,229,255,0.7)', fontFamily: 'monospace' }}>{w.desc}</p>
             </div>
           ))}
         </div>

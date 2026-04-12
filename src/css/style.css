@@ -1189,39 +1189,24 @@ a {
 /* ── Grid ── */
 .vg-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
-}
-
-/* Featured cards span 2 columns on wide screens */
-.vg-card--featured {
-  grid-column: span 1;
-}
-
-@media (min-width: 900px) {
-  .vg-card--featured {
-    grid-column: span 2;
-  }
-  .vg-card--featured .vg-card-media {
-    aspect-ratio: 21/9;
-  }
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
 }
 
 /* Card */
 .vg-card {
   background: transparent;
-  border: 1px solid var(--glass-border);
+  border: none;
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
   animation: vgFadeUp 0.5s both;
 }
 
 .vg-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(0, 229, 255, 0.35);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,229,255,0.2);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,229,255,0.25);
 }
 
 @keyframes vgFadeUp {
@@ -1231,10 +1216,16 @@ a {
 
 .vg-card-media {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #0d0d0d;
   border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: border-color 0.35s ease;
+}
+
+.vg-card:hover .vg-card-media {
+  border-color: rgba(0, 229, 255, 0.35);
 }
 
 .vg-poster {
@@ -1683,9 +1674,7 @@ a {
 .vg-lb-next { right: 16px; }
 
 @media (max-width: 768px) {
-  .vg-grid { grid-template-columns: 1fr; }
-  .vg-card--featured { grid-column: span 1; }
-  .vg-card--featured .vg-card-media { aspect-ratio: 16/9; }
+  .vg-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .vg-lb-nav { width: 36px; height: 36px; }
   .vg-toolbar { flex-direction: column; align-items: stretch; }
   .vg-search-wrapper { max-width: 100%; }
@@ -1694,8 +1683,7 @@ a {
 }
 
 @media (min-width: 768px) and (max-width: 1100px) {
-  .vg-grid { grid-template-columns: repeat(2, 1fr); }
-  .vg-card--featured { grid-column: span 2; }
+  .vg-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 /* ============================================================
@@ -2130,23 +2118,6 @@ a {
    MOBILE — Video Gallery
    ============================================================ */
 @media (max-width: 768px) {
-  .vg-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-  }
-
-  .vg-card--featured {
-    grid-column: span 2;
-  }
-
-  .vg-card-media {
-    aspect-ratio: 4/3;
-  }
-
-  .vg-card--featured .vg-card-media {
-    aspect-ratio: 16/9;
-  }
-
   .vg-toolbar {
     flex-direction: column;
     gap: 12px;
@@ -2196,11 +2167,6 @@ a {
     right: 8px;
   }
 
-  .vg-play-ring {
-    width: 42px;
-    height: 42px;
-  }
-
   /* Showcase header */
   .portfolio-showcase-header {
     flex-direction: column;
@@ -2225,16 +2191,8 @@ a {
 
 @media (max-width: 480px) {
   .vg-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-
-  .vg-card--featured {
-    grid-column: span 1;
-  }
-
-  .vg-card-media {
-    aspect-ratio: 16/9;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 }
 
