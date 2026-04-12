@@ -1,5 +1,6 @@
 # Large media — excluded from Vercel upload
 videoz/
+src/assets/videos/
 ffmpeg_bin/
 temp.mp4
 *.mp4
