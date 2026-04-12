@@ -1,0 +1,21 @@
+# Large media — excluded from Vercel upload
+videoz/
+ffmpeg_bin/
+temp.mp4
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Dependencies (Vercel installs these itself)
+node_modules/
+
+# Root-level junk
+mosuliman.png
+index.html-backup
+findings.md
+progress.md
+project_map.md
+task_plan.md
+test-icloud.js
+aries black cv.pdf
