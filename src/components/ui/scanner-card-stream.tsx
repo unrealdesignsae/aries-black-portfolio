@@ -134,8 +134,8 @@ const ScannerCardStream = ({
     const half = 50;
     const gradient = texCtx.createRadialGradient(half, half, 0, half, half, half);
     gradient.addColorStop(0.025, "#fff");
-    gradient.addColorStop(0.1, `hsl(217, 61%, 33%)`);
-    gradient.addColorStop(0.25, `hsl(217, 64%, 6%)`);
+    gradient.addColorStop(0.1, `hsl(187, 100%, 50%)`);
+    gradient.addColorStop(0.25, `hsl(187, 100%, 6%)`);
     gradient.addColorStop(1, "transparent");
     texCtx.fillStyle = gradient;
     texCtx.arc(half, half, half, 0, Math.PI * 2);
@@ -446,13 +446,13 @@ const ScannerCardStream = ({
           height: 280,
           width: 2,
           transform: 'translateX(-50%) translateY(-50%)',
-          background: 'linear-gradient(to bottom, transparent, #a78bfa, transparent)',
+          background: 'linear-gradient(to bottom, transparent, #00E5FF, transparent)',
           borderRadius: 9999,
           zIndex: 20,
           pointerEvents: 'none',
           opacity: isScanning ? 1 : 0,
           transition: 'opacity 0.3s ease',
-          boxShadow: '0 0 10px #a78bfa, 0 0 20px #a78bfa, 0 0 30px #8b5cf6, 0 0 50px #6366f1',
+          boxShadow: '0 0 10px #00E5FF, 0 0 20px #00E5FF, 0 0 30px #00bcd4, 0 0 50px #0097a7',
         }}
       />
 
@@ -493,7 +493,7 @@ const ScannerCardStream = ({
                 <pre
                   className="ascii-content animate-glitch absolute top-0 left-0 w-full h-full m-0 p-0 text-left overflow-hidden whitespace-pre box-border"
                   style={{
-                    color: 'rgba(220,210,255,0.6)',
+                    color: 'rgba(180,240,255,0.6)',
                     fontFamily: 'monospace',
                     fontSize: 11,
                     lineHeight: '13px',

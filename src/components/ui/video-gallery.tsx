@@ -506,7 +506,7 @@ export function VideoGallery() {
           </div>
           {!showAll && filtered.length > INITIAL_VISIBLE && (
             <button className="vg-show-more" onClick={() => setShowAll(true)}>
-              Show All {filtered.length} Projects
+              Show More
               <ChevronDown size={18} />
             </button>
           )}
@@ -528,7 +528,7 @@ export function VideoGallery() {
           </div>
           {!showAll && filtered.length > INITIAL_VISIBLE + 2 && (
             <button className="vg-show-more" onClick={() => setShowAll(true)}>
-              Show All {filtered.length} Projects
+              Show More
               <ChevronDown size={18} />
             </button>
           )}
