@@ -1,0 +1,17 @@
+{
+  "rewrites": [
+    {
+      "source": "/r2-cdn/:path*",
+      "destination": "https://pub-340c09903d0b49fea4aec85224bcb1bb.r2.dev/:path*"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/r2-cdn/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET, HEAD, OPTIONS" }
+      ]
+    }
+  ]
+}
