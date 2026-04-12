@@ -838,6 +838,7 @@ a {
 .role {
     font-size: 1.5rem;
     margin-bottom: 5px;
+    color: #ffffff;
 }
 
 .company {
@@ -845,6 +846,11 @@ a {
     color: var(--text-secondary);
     font-weight: 400;
     margin-bottom: 15px;
+}
+
+.timeline-content p,
+.glass-card p {
+    color: #ededed;
 }
 
 /* ==== Footer / Contact ==== */
