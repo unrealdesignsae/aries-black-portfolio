@@ -95,7 +95,7 @@ const TimeDisplay = ({ CONFIG = { timeZone: "America/New_York", timeUpdateInterv
   }, [CONFIG.timeZone, CONFIG.timeUpdateInterval]);
 
   return (
-    <time className="absolute bottom-8 right-8 font-mono text-sm tracking-widest text-[#d4af37]" id="current-time">
+    <time className="absolute bottom-8 right-8 font-mono text-sm tracking-widest text-[#00E5FF]" id="current-time">
       {time.hours}<span className="animate-[blink_1s_infinite]">:</span>{time.minutes} {time.dayPeriod}
     </time>
   );
@@ -118,7 +118,7 @@ const ProjectItem = ({ project, index, onMouseEnter, onMouseLeave, isActive, isI
       className={`group flex flex-col md:flex-row items-start md:items-center justify-between py-6 border-b border-white/10 transition-colors duration-300 font-mono text-xs md:text-sm tracking-widest cursor-pointer
         ${isActive ? 'text-white' : 'text-white/40'} 
         ${isIdle ? 'opacity-100' : (isActive ? 'opacity-100' : 'opacity-30')} 
-        hover:text-[#d4af37] hover:border-[#d4af37]/30`}
+        hover:text-[#00E5FF] hover:border-[#00E5FF]/30`}
       onMouseEnter={() => onMouseEnter(index, project.image)}
       onMouseLeave={onMouseLeave}
     >
@@ -126,7 +126,7 @@ const ProjectItem = ({ project, index, onMouseEnter, onMouseLeave, isActive, isI
       <span ref={albumRef} className="w-full md:w-1/4 mb-2 md:mb-0 font-bold">{project.album}</span>
       <span ref={categoryRef} className="w-full md:w-1/6 md:text-center text-white/50">{project.category}</span>
       <span ref={labelRef} className="w-full md:w-1/4 md:text-right hidden md:block text-white/30">{project.label}</span>
-      <span ref={yearRef} className="w-auto md:ml-8 text-[#d4af37]">{project.year}</span>
+      <span ref={yearRef} className="w-auto md:ml-8 text-[#00E5FF]">{project.year}</span>
     </li>
   );
 };
@@ -252,8 +252,8 @@ const MusicPortfolio = ({ PROJECTS_DATA = [], LOCATION = {}, CALLBACKS = {}, CON
         className="relative z-10 w-full max-w-5xl px-8 md:px-12"
         onMouseLeave={handleContainerMouseLeave}
       >
-        <div className="mb-12 border-b border-[#d4af37]/30 pb-4 flex justify-between items-end">
-          <h3 className="font-mono text-sm tracking-[0.3em] font-medium text-[#d4af37]">PROJECT INDEX</h3>
+        <div className="mb-12 border-b border-[#00E5FF]/30 pb-4 flex justify-between items-end">
+          <h3 className="font-mono text-sm tracking-[0.3em] font-medium text-[#00E5FF]">PROJECT INDEX</h3>
           <span className="font-mono text-xs opacity-50">LATEST WORK</span>
         </div>
 
@@ -273,9 +273,9 @@ const MusicPortfolio = ({ PROJECTS_DATA = [], LOCATION = {}, CALLBACKS = {}, CON
       </main>
 
       {/* Corner Elements */}
-      <div className="absolute top-8 left-8 w-8 h-8 border-t border-l border-[#d4af37]/50" />
+      <div className="absolute top-8 left-8 w-8 h-8 border-t border-l border-[#00E5FF]/50" />
       
-      <nav className="absolute top-8 right-8 flex gap-4 text-xs font-mono text-[#d4af37]">
+      <nav className="absolute top-8 right-8 flex gap-4 text-xs font-mono text-[#00E5FF]">
         <a href="https://open.spotify.com/user/226ilulo57zutgtiwjsjqnqsy?si=0004e7bc669a406e" className="flex items-center gap-1 hover:text-white transition-colors">
           <Music size={12} /> Spotify
         </a>
@@ -287,7 +287,7 @@ const MusicPortfolio = ({ PROJECTS_DATA = [], LOCATION = {}, CALLBACKS = {}, CON
         </a>
       </nav>
       
-      <div className="absolute bottom-8 left-8 flex items-center gap-2 text-xs font-mono text-[#d4af37]">
+      <div className="absolute bottom-8 left-8 flex items-center gap-2 text-xs font-mono text-[#00E5FF]">
         <MapPin size={12} /> 43.9250° N, 19.5530° E
       </div>
       

@@ -138,20 +138,9 @@ function App() {
     }
     window.addEventListener("scroll", onScroll)
 
-    // Custom cursor movement
-    const cursor = document.querySelector(".custom-cursor") as HTMLElement | null
-    const moveCursor = (e: MouseEvent) => {
-      if (cursor) {
-        cursor.style.left = e.clientX + "px"
-        cursor.style.top = e.clientY + "px"
-      }
-    }
-    window.addEventListener("mousemove", moveCursor)
-
     return () => {
       window.removeEventListener("scroll", reveal)
       window.removeEventListener("scroll", onScroll)
-      window.removeEventListener("mousemove", moveCursor)
     }
   }, [])
 
@@ -159,7 +148,6 @@ function App() {
     <div className="portfolio-root">
       {/* ── FIXED FULL-SCREEN GLITCH BACKGROUND ── */}
       <GlitchCursor fullscreen />
-      <div className="custom-cursor"></div>
 
       {/* Navigation */}
       <nav className="navbar">
@@ -259,19 +247,6 @@ function App() {
             <h2>Featured Visualizations</h2>
             <p>Curated archive of architectural visualizations, immersive stage designs, and real-time renders.</p>
           </div>
-          
-          <div className="portfolio-showcase-header reveal">
-            <div className="showcase-intro">
-              <h3>The Complete Video Archive</h3>
-              <p>Curated archive of 28 animated visualizations, real-time walkthroughs, and cinematic event productions — hover to preview, click to watch.</p>
-            </div>
-            <a href="https://www.icloud.com/sharedalbum/#B2C5oqs3q2D2qZu" target="_blank" rel="noopener noreferrer" className="cta-button gold">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-              <ScrambleHover text="Full iCloud Album" />
-            </a>
-          </div>
-
-
 
           <div className="reveal">
             <VideoGallery />

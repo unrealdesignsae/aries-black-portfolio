@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
-import { Search, Grid3X3, List, Play, X, ChevronLeft, ChevronRight, SlidersHorizontal } from 'lucide-react'
+import { Search, Grid3X3, List, Play, X, ChevronLeft, ChevronRight, ChevronDown, SlidersHorizontal } from 'lucide-react'
 import { R2_CDN } from '../../lib/cdn'
 
 // ── Project metadata ─────────────────────────────────────────────────────────
@@ -219,7 +219,7 @@ function VideoCard({
         {failed ? (
           <GradientPoster title={project.title} category={project.category} />
         ) : poster ? (
-          <img className="vg-poster" src={poster} alt={project.title} />
+          <img className="vg-poster" src={poster} alt={project.title} loading="lazy" />
         ) : (
           <div className="vg-poster-loading">
             <div className="vg-poster-loading-shimmer" />
@@ -240,16 +240,14 @@ function VideoCard({
           </div>
         </div>
         <span className="vg-category-badge">{project.category}</span>
+        {/* Bottom gradient with title overlay */}
+        <div className="vg-card-bottom-overlay">
+          <h3 className="vg-title">{project.title}</h3>
+          <span className="vg-watch">Watch ›</span>
+        </div>
         {/* Hover progress bar */}
         <div className={`vg-hover-progress ${hovered ? 'vg-hover-progress--visible' : ''}`}>
           <div className="vg-hover-progress-fill" style={{ width: `${progress}%` }} />
-        </div>
-      </div>
-      <div className="vg-card-info">
-        <h3 className="vg-title">{project.title}</h3>
-        <div className="vg-meta">
-          <span className="vg-tag">{project.category}</span>
-          <span className="vg-watch">Watch ›</span>
         </div>
       </div>
     </div>
@@ -386,7 +384,9 @@ export function VideoGallery() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
   const [sortMode, setSortMode] = useState<SortMode>('default')
   const [showSortMenu, setShowSortMenu] = useState(false)
+  const [showAll, setShowAll] = useState(false)
   const categoryCounts = useMemo(() => getCategoryCounts(), [])
+  const INITIAL_VISIBLE = 6
 
   const filtered = useMemo(() => {
     let result = activeCategory === 'All'
@@ -493,30 +493,46 @@ export function VideoGallery() {
 
       {/* ── Grid View ── */}
       {viewMode === 'grid' && (
-        <div className="vg-grid" key={`grid-${activeCategory}-${searchQuery}`}>
-          {filtered.map((project, i) => (
-            <VideoCard
-              key={project.file}
-              project={project}
-              index={i}
-              onClick={() => openLightbox(i)}
-            />
-          ))}
-        </div>
+        <>
+          <div className="vg-grid" key={`grid-${activeCategory}-${searchQuery}`}>
+            {(showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE)).map((project, i) => (
+              <VideoCard
+                key={project.file}
+                project={project}
+                index={i}
+                onClick={() => openLightbox(i)}
+              />
+            ))}
+          </div>
+          {!showAll && filtered.length > INITIAL_VISIBLE && (
+            <button className="vg-show-more" onClick={() => setShowAll(true)}>
+              Show All {filtered.length} Projects
+              <ChevronDown size={18} />
+            </button>
+          )}
+        </>
       )}
 
       {/* ── List View ── */}
       {viewMode === 'list' && (
-        <div className="vg-list" key={`list-${activeCategory}-${searchQuery}`}>
-          {filtered.map((project, i) => (
-            <VideoListItem
-              key={project.file}
-              project={project}
-              index={i}
-              onClick={() => openLightbox(i)}
-            />
-          ))}
-        </div>
+        <>
+          <div className="vg-list" key={`list-${activeCategory}-${searchQuery}`}>
+            {(showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE + 2)).map((project, i) => (
+              <VideoListItem
+                key={project.file}
+                project={project}
+                index={i}
+                onClick={() => openLightbox(i)}
+              />
+            ))}
+          </div>
+          {!showAll && filtered.length > INITIAL_VISIBLE + 2 && (
+            <button className="vg-show-more" onClick={() => setShowAll(true)}>
+              Show All {filtered.length} Projects
+              <ChevronDown size={18} />
+            </button>
+          )}
+        </>
       )}
 
       {/* Empty state */}
