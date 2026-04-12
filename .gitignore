@@ -1,0 +1,45 @@
+# ── Dependencies ──────────────────────────────────────────────
+node_modules/
+
+# ── Build output ──────────────────────────────────────────────
+dist/
+dist-ssr/
+*.local
+
+# ── Large media assets (too big for GitHub) ───────────────────
+videoz/
+ffmpeg_bin/
+temp.mp4
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# ── Root-level duplicate / personal files ─────────────────────
+mosuliman.png
+index.html-backup
+"aries black cv.pdf"
+aries black cv.pdf
+
+# ── AI session scratch files ──────────────────────────────────
+findings.md
+progress.md
+project_map.md
+task_plan.md
+test-icloud.js
+
+# ── OS / editor ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/settings.json
+
+# ── Env files ─────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+.env*.local
+
+# ── Vite cache ────────────────────────────────────────────────
+.vite/
