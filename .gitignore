@@ -6,8 +6,10 @@ dist/
 dist-ssr/
 *.local
 
-# ── Large media assets (too big for GitHub) ───────────────────
+# ── Large media assets (served from Cloudflare R2 CDN) ────────
+videos/
 videoz/
+src/assets/videos/
 ffmpeg_bin/
 temp.mp4
 *.mp4
@@ -15,18 +17,14 @@ temp.mp4
 *.avi
 *.mkv
 
-# ── Root-level duplicate / personal files ─────────────────────
-mosuliman.png
-index.html-backup
-"aries black cv.pdf"
-aries black cv.pdf
+# ── Cloudflare Wrangler cache ─────────────────────────────────
+.wrangler/
 
-# ── AI session scratch files ──────────────────────────────────
-findings.md
-progress.md
-project_map.md
-task_plan.md
-test-icloud.js
+# ── Upload / deploy scripts (local only) ──────────────────────
+upload-to-r2.ps1
+
+# ── Non-portfolio directories ─────────────────────────────────
+skills/
 
 # ── OS / editor ───────────────────────────────────────────────
 .DS_Store
@@ -43,3 +41,6 @@ Thumbs.db
 
 # ── Vite cache ────────────────────────────────────────────────
 .vite/
+
+# ── Vercel ────────────────────────────────────────────────────
+.vercel

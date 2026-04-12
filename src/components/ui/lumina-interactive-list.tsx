@@ -67,14 +67,16 @@ export function Component() {
       const PROGRESS_UPDATE_INTERVAL = 50;
       const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
 
-      // Six hero slides sourced from the local video gallery
+      const R2_CDN = 'https://pub-340c09903d0b49fea4aec85224bcb1bb.r2.dev';
+
+      // Six hero slides sourced from Cloudflare R2 CDN
       const slides = [
-        { title: "DAMAC Luxury Tower",        description: "Photorealistic high-rise architectural visualisation for DAMAC.", videoSrc: "/src/assets/videos/video_1.mp4"  },
-        { title: "World Government Summit",   description: "Monumental stage design for the UAE's flagship global event.",   videoSrc: "/src/assets/videos/video_3.mp4"  },
-        { title: "TAG Heuer Activation",      description: "Immersive luxury brand experience stage engineered in 3D.",      videoSrc: "/src/assets/videos/video_4.mp4"  },
-        { title: "Real-Time Cityscape",       description: "Live UE5 walkthrough of a fully rendered Dubai cityscape.",       videoSrc: "/src/assets/videos/video_5.mp4"  },
-        { title: "Entourage Mega-Event",      description: "Massive event stage visualization for a 10,000-seat arena.",     videoSrc: "/src/assets/videos/video_21.mp4" },
-        { title: "Ministry of Transport Hub", description: "Architectural masterplan render for a major UAE transit hub.",   videoSrc: "/src/assets/videos/video_19.mp4" },
+        { title: "DAMAC Luxury Tower",        description: "Photorealistic high-rise architectural visualisation for DAMAC.", videoSrc: `${R2_CDN}/video_1.mp4`  },
+        { title: "World Government Summit",   description: "Monumental stage design for the UAE's flagship global event.",   videoSrc: `${R2_CDN}/video_3.mp4`  },
+        { title: "TAG Heuer Activation",      description: "Immersive luxury brand experience stage engineered in 3D.",      videoSrc: `${R2_CDN}/video_4.mp4`  },
+        { title: "Real-Time Cityscape",       description: "Live UE5 walkthrough of a fully rendered Dubai cityscape.",       videoSrc: `${R2_CDN}/video_5.mp4`  },
+        { title: "Entourage Mega-Event",      description: "Massive event stage visualization for a 10,000-seat arena.",     videoSrc: `${R2_CDN}/video_21.mp4` },
+        { title: "Ministry of Transport Hub", description: "Architectural masterplan render for a major UAE transit hub.",   videoSrc: `${R2_CDN}/video_19.mp4` },
       ];
 
       // --- SHADERS ---

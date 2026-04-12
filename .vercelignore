@@ -1,4 +1,5 @@
-# Large media — excluded from Vercel upload
+# ── Large media (served from Cloudflare R2 CDN) ───────────────
+videos/
 videoz/
 src/assets/videos/
 ffmpeg_bin/
@@ -8,10 +9,13 @@ temp.mp4
 *.avi
 *.mkv
 
-# Dependencies (Vercel installs these itself)
+# ── Dependencies (Vercel installs these) ──────────────────────
 node_modules/
 
-# Root-level junk
+# ── Non-portfolio directories ─────────────────────────────────
+skills/
+
+# ── Root-level junk ───────────────────────────────────────────
 mosuliman.png
 index.html-backup
 findings.md
