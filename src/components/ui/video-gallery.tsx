@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
 import { Search, Grid3X3, List, Play, X, ChevronLeft, ChevronRight, SlidersHorizontal } from 'lucide-react'
-
-// ── CDN base ──────────────────────────────────────────────────────────────────
-const R2_CDN = 'https://pub-340c09903d0b49fea4aec85224bcb1bb.r2.dev'
+import { R2_CDN } from '../../lib/cdn'
 
 // ── Project metadata ─────────────────────────────────────────────────────────
 const PROJECT_DATA: { file: string; title: string; category: string; featured?: boolean }[] = [
@@ -47,66 +45,97 @@ function getCategoryCounts() {
   return counts
 }
 
-// ── Poster hook with robust fallback ──────────────────────────────────────────
-function usePoster(src: string, title: string) {
+// ── Queued poster generator (max 3 concurrent) ───────────────────────────────
+const posterQueue: (() => void)[] = []
+let activePosters = 0
+const MAX_CONCURRENT_POSTERS = 3
+
+function runNextPoster() {
+  if (activePosters >= MAX_CONCURRENT_POSTERS || posterQueue.length === 0) return
+  const next = posterQueue.shift()
+  if (next) { activePosters++; next() }
+}
+
+function capturePoster(src: string): Promise<string | null> {
+  return new Promise((resolve) => {
+    const run = () => {
+      const video = document.createElement('video')
+      video.src = src
+      video.crossOrigin = 'anonymous'
+      video.muted = true
+      video.playsInline = true
+      video.preload = 'metadata'
+
+      const cleanup = () => {
+        video.src = ''
+        video.load()
+        activePosters--
+        runNextPoster()
+      }
+
+      const timeout = setTimeout(() => {
+        cleanup()
+        resolve(null)
+      }, 12000)
+
+      const capture = () => {
+        clearTimeout(timeout)
+        try {
+          const canvas = document.createElement('canvas')
+          canvas.width = 640
+          canvas.height = 360
+          const ctx = canvas.getContext('2d', { willReadFrequently: true })
+          if (ctx) {
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+            const dataUrl = canvas.toDataURL('image/jpeg', 0.8)
+            cleanup()
+            resolve(dataUrl && dataUrl.length > 100 ? dataUrl : null)
+          } else {
+            cleanup()
+            resolve(null)
+          }
+        } catch {
+          cleanup()
+          resolve(null)
+        }
+      }
+
+      video.addEventListener('loadedmetadata', () => {
+        const seekTarget = Math.min(1, Math.max(0, video.duration - 0.1))
+        video.currentTime = seekTarget
+      }, { once: true })
+
+      video.addEventListener('seeked', capture, { once: true })
+      video.addEventListener('error', () => {
+        clearTimeout(timeout)
+        cleanup()
+        resolve(null)
+      }, { once: true })
+
+      video.load()
+    }
+
+    posterQueue.push(run)
+    runNextPoster()
+  })
+}
+
+function usePoster(src: string) {
   const [poster, setPoster] = useState<string>('')
   const [failed, setFailed] = useState(false)
 
   useEffect(() => {
     let cancelled = false
-    const video = document.createElement('video')
-    video.src = src
-    video.crossOrigin = 'anonymous'
-    video.muted = true
-    video.preload = 'metadata'
 
-    const timeout = setTimeout(() => {
-      if (!cancelled && !poster) setFailed(true)
-    }, 8000) // 8s timeout — if poster hasn't been captured, show fallback
-
-    const capture = () => {
+    capturePoster(src).then(result => {
       if (cancelled) return
-      try {
-        const canvas = document.createElement('canvas')
-        canvas.width = 640
-        canvas.height = 360
-        const ctx = canvas.getContext('2d')
-        if (ctx) {
-          ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.85)
-          // Check if toDataURL actually produced a valid image (CORS may taint it)
-          if (dataUrl && dataUrl.length > 100) {
-            setPoster(dataUrl)
-          } else {
-            setFailed(true)
-          }
-        } else {
-          setFailed(true)
-        }
-      } catch {
-        // Canvas tainted by CORS — use fallback
-        setFailed(true)
-      }
-    }
+      if (result) setPoster(result)
+      else setFailed(true)
+    })
 
-    const onLoaded = () => {
-      const seekTarget = Math.min(1, Math.max(0, video.duration - 0.1))
-      video.currentTime = seekTarget
-    }
-
-    video.addEventListener('loadedmetadata', onLoaded, { once: true })
-    video.addEventListener('seeked', capture, { once: true })
-    video.addEventListener('loadeddata', () => {
-      if (video.currentTime === 0) onLoaded()
-    }, { once: true })
-    video.addEventListener('error', () => { if (!cancelled) setFailed(true) }, { once: true })
-
-    return () => {
-      cancelled = true
-      clearTimeout(timeout)
-      video.src = ''
-    }
+    return () => { cancelled = true }
   }, [src])
+
 
   return { poster, failed }
 }
@@ -140,7 +169,7 @@ function VideoCard({
   index: number
 }) {
   const src = `${R2_CDN}/${project.file}`
-  const { poster, failed } = usePoster(src, project.title)
+  const { poster, failed } = usePoster(src)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hovered, setHovered] = useState(false)
   const [progress, setProgress] = useState(0)
@@ -238,7 +267,7 @@ function VideoListItem({
   index: number
 }) {
   const src = `${R2_CDN}/${project.file}`
-  const { poster, failed } = usePoster(src, project.title)
+  const { poster, failed } = usePoster(src)
 
   return (
     <div

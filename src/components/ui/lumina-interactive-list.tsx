@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { R2_CDN } from '../../lib/cdn';
 
 declare const gsap: any;
 declare const THREE: any;
@@ -67,9 +68,7 @@ export function Component() {
       const PROGRESS_UPDATE_INTERVAL = 50;
       const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
 
-      const R2_CDN = 'https://pub-340c09903d0b49fea4aec85224bcb1bb.r2.dev';
-
-      // Six hero slides sourced from Cloudflare R2 CDN
+      // Six hero slides sourced from Cloudflare R2 CDN (proxied in dev)
       const slides = [
         { title: "DAMAC Luxury Tower",        description: "Photorealistic high-rise architectural visualisation for DAMAC.", videoSrc: `${R2_CDN}/video_1.mp4`  },
         { title: "World Government Summit",   description: "Monumental stage design for the UAE's flagship global event.",   videoSrc: `${R2_CDN}/video_3.mp4`  },
