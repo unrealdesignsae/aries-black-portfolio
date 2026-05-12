@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import { AnimatedTiles } from "@/components/ui/animated-tiles"
 import { VideoGallery } from "@/components/ui/video-gallery"
 import GlitchCursor from "@/components/ui/glitch-cursor"
@@ -438,6 +439,7 @@ function App() {
           </div>
         </div>
       </footer>
+      <Analytics />
     </div>
   )
 }
