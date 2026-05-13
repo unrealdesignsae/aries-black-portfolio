@@ -3,7 +3,6 @@ import { Analytics } from '@vercel/analytics/react'
 import { AnimatedTiles } from "@/components/ui/animated-tiles"
 import { VideoGallery } from "@/components/ui/video-gallery"
 import { YouTubeGallery } from "@/components/ui/youtube-gallery"
-import GlitchCursor from "@/components/ui/glitch-cursor"
 import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
 import { ScannerCardStream } from "@/components/ui/scanner-card-stream"
@@ -164,8 +163,6 @@ function App() {
 
   return (
     <div className="portfolio-root">
-      <GlitchCursor fullscreen />
-
       {/* ── NAV ── */}
       <nav className="navbar">
         <div className="nav-logo">AB.</div>
