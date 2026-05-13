@@ -2411,17 +2411,13 @@ a {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Card title bar — always visible */
+/* Card title bar — sits below the media */
 .vg-card-title-bar {
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 22px 12px 10px;
-  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
-  z-index: 5;
+  padding: 10px 4px 2px;
   pointer-events: none;
 }
 .vg-card-title-bar--vis { /* kept for compat */ }

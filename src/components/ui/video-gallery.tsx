@@ -555,7 +555,7 @@ function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
         {failed
           ? <div className="vg-grad-fb"><Play size={28} strokeWidth={1} style={{ color: 'rgba(0,229,255,0.4)' }} /></div>
           : poster
-          ? <img className="vg-poster" src={poster} alt={title} loading="lazy" />
+          ? <img className="vg-poster" src={poster} alt={project.name} loading="lazy" />
           : <div className="vg-shimmer"><div className="vg-shimmer-bar" /></div>
         }
         <video
@@ -563,15 +563,15 @@ function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
           className={`vg-video ${hovered ? 'vg-video--vis' : ''}`}
           src={src} muted loop playsInline preload="none"
         />
-        {/* Title overlay — always visible */}
-        <div className="vg-card-title-bar">
-          <div className="vg-card-title-info">
-            <span className="vg-card-title-text">{project.name}</span>
-            <span className="vg-card-title-year">{project.year}</span>
-          </div>
-          <Play size={14} fill="white" strokeWidth={0} style={{ flexShrink: 0 }} />
-        </div>
         <div className="vg-scan-line" />
+      </div>
+      {/* Title bar — outside media so overflow:hidden doesn't clip it */}
+      <div className="vg-card-title-bar">
+        <div className="vg-card-title-info">
+          <span className="vg-card-title-text">{project.name}</span>
+          <span className="vg-card-title-year">{project.year}</span>
+        </div>
+        <Play size={14} fill="white" strokeWidth={0} style={{ flexShrink: 0 }} />
       </div>
     </div>
   )
