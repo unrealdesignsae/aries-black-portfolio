@@ -86,7 +86,7 @@
   }
   body {
     @apply text-foreground;
-    background: transparent;
+    background: #050505;
   }
 }
 
