@@ -435,7 +435,7 @@ function App() {
 
           <div className="timeline stagger-children">
             {[
-              { date: 'Sep 2024 — Present', role: 'Senior CG Generalist', company: 'Entourage Marketing & Events · Dubai', desc: 'Developing high-end 3D visualizations and stage concepts for major corporate events and luxury brand activations.' },
+              { date: 'Sep 2024 — Present', role: 'Technical Art Director', company: 'Entourage Marketing & Events · Dubai', desc: 'Developing high-end 3D visualizations and stage concepts for major corporate events and luxury brand activations.' },
               { date: 'Mar 2024 — Aug 2024', role: 'Architectural Visualizer', company: 'Ambient Studio · Dubai', desc: 'Produced architectural renderings and landscape visualizations for premium residential and commercial developments.' },
               { date: 'Sep 2022 — Feb 2024', role: 'Senior 3D Artist', company: 'OD Event · Dubai', desc: 'Created high-quality visualizations and immersive stage designs for large-scale events across the UAE.' },
               { date: '2012 — 2021', role: 'Self-Employed Designer', company: 'InDesign · Cairo, Egypt', desc: 'Delivered architectural and interior designs across residential, commercial, and hospitality sectors.' }
