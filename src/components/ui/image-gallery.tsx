@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
+import { ProjectCarousel } from './project-carousel';
 
 interface GalleryProject {
   title: string;
@@ -73,7 +74,7 @@ const PROJECTS: GalleryProject[] = [
 
 const INITIAL_COUNT = 12
 
-function ImageCard({ project, index }: { project: GalleryProject; index: number }) {
+function ImageCard({ project, index, onOpen }: { project: GalleryProject; index: number; onOpen: () => void }) {
   const [hovered, setHovered] = useState(false)
   const [imgSrc, setImgSrc] = useState(project.src)
 
@@ -86,6 +87,7 @@ function ImageCard({ project, index }: { project: GalleryProject; index: number 
         className={`vg-card ${hovered ? 'vg-card--hov' : ''}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        onClick={onOpen}
       >
         <div className="vg-card-media">
           <img
@@ -106,15 +108,23 @@ function ImageCard({ project, index }: { project: GalleryProject; index: number 
   )
 }
 
+interface SelectedProject { title: string; venue: string; src: string }
+
 export function ImageGallery() {
-  const [showAll, setShowAll] = useState(false)
+  const [showAll,  setShowAll]  = useState(false)
+  const [selected, setSelected] = useState<SelectedProject | null>(null)
   const visible = showAll ? PROJECTS : PROJECTS.slice(0, INITIAL_COUNT)
 
   return (
     <div className="vg-root">
       <div className="vg-grid">
         {visible.map((project, i) => (
-          <ImageCard key={`${project.title}-${i}`} project={project} index={i} />
+          <ImageCard
+            key={`${project.title}-${i}`}
+            project={project}
+            index={i}
+            onOpen={() => setSelected({ title: project.title, venue: project.venue, src: project.src })}
+          />
         ))}
       </div>
 
@@ -127,6 +137,15 @@ export function ImageGallery() {
         <button className="vg-show-more" onClick={() => setShowAll(false)}>
           Show Less <ChevronDown size={17} style={{ transform: 'rotate(180deg)' }} />
         </button>
+      )}
+
+      {selected && (
+        <ProjectCarousel
+          title={selected.title}
+          venue={selected.venue}
+          src={selected.src}
+          onClose={() => setSelected(null)}
+        />
       )}
     </div>
   )
