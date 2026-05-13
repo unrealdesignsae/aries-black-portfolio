@@ -168,9 +168,28 @@ function PlayerLightbox({
 
   // ── Fullscreen ──────────────────────────────────────────────────────────────
   const toggleFs = useCallback(() => {
-    const el = containerRef.current; if (!el) return
-    if (!document.fullscreenElement) el.requestFullscreen().catch(() => {})
-    else document.exitFullscreen().catch(() => {})
+    const el = containerRef.current
+    const v  = videoRef.current
+    if (!el || !v) return
+
+    // iOS Safari: fullscreen only works via webkitEnterFullscreen on <video>
+    const vAny = v as any
+    if (typeof vAny.webkitEnterFullscreen === 'function') {
+      if (vAny.webkitDisplayingFullscreen) vAny.webkitExitFullscreen()
+      else vAny.webkitEnterFullscreen()
+      return
+    }
+
+    // Standard + vendor-prefixed Fullscreen API (Android, desktop)
+    const elAny = el as any
+    const isFs  = !!(document.fullscreenElement || (document as any).webkitFullscreenElement)
+    if (!isFs) {
+      const req = elAny.requestFullscreen || elAny.webkitRequestFullscreen || elAny.mozRequestFullScreen || elAny.msRequestFullscreen
+      req?.call(el).catch(() => {})
+    } else {
+      const exit = (document as any).exitFullscreen || (document as any).webkitExitFullscreen || (document as any).mozCancelFullScreen || (document as any).msExitFullscreen
+      exit?.call(document)
+    }
   }, [])
 
   // ── Mute ────────────────────────────────────────────────────────────────────
@@ -229,9 +248,23 @@ function PlayerLightbox({
 
   // ── Fullscreen sync ─────────────────────────────────────────────────────────
   useEffect(() => {
-    const onChange = () => setFullscr(!!document.fullscreenElement)
-    document.addEventListener('fullscreenchange', onChange)
-    return () => document.removeEventListener('fullscreenchange', onChange)
+    // Standard + webkit document events (Android / desktop)
+    const onDocFs = () => setFullscr(!!(document.fullscreenElement || (document as any).webkitFullscreenElement))
+    document.addEventListener('fullscreenchange', onDocFs)
+    document.addEventListener('webkitfullscreenchange', onDocFs)
+
+    // iOS Safari fires these on the video element itself
+    const v = videoRef.current
+    const onVidFs = () => setFullscr(!!(v as any).webkitDisplayingFullscreen)
+    v?.addEventListener('webkitbeginfullscreen', onVidFs)
+    v?.addEventListener('webkitendfullscreen',   onVidFs)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', onDocFs)
+      document.removeEventListener('webkitfullscreenchange', onDocFs)
+      v?.removeEventListener('webkitbeginfullscreen', onVidFs)
+      v?.removeEventListener('webkitendfullscreen',   onVidFs)
+    }
   }, [])
 
   // ── Volume ──────────────────────────────────────────────────────────────────
