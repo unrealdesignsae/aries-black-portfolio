@@ -170,8 +170,11 @@ function App() {
         <div className="nav-logo">AB.</div>
         <div className="nav-links">
           <a href="#about" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="About" /></a>
-          <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Work" /></a>
+          <a href="#live-work" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Live Work" /></a>
+          <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Visualizations" /></a>
+          <a href="#software-arsenal" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Tools" /></a>
           <a href="#expertise" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Expertise" /></a>
+          <a href="#ai-workflows" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="AI" /></a>
           <a href="#experience" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Experience" /></a>
         </div>
         <div className="nav-right">
@@ -213,8 +216,11 @@ function App() {
       {mobileNavOpen && (
         <div className="mobile-nav-drawer">
           <a href="#about" onClick={() => setMobileNavOpen(false)}>About</a>
-          <a href="#portfolio" onClick={() => setMobileNavOpen(false)}>Work</a>
+          <a href="#live-work" onClick={() => setMobileNavOpen(false)}>Live Work</a>
+          <a href="#portfolio" onClick={() => setMobileNavOpen(false)}>Visualizations</a>
+          <a href="#software-arsenal" onClick={() => setMobileNavOpen(false)}>Tools</a>
           <a href="#expertise" onClick={() => setMobileNavOpen(false)}>Expertise</a>
+          <a href="#ai-workflows" onClick={() => setMobileNavOpen(false)}>AI Workflows</a>
           <a href="#experience" onClick={() => setMobileNavOpen(false)}>Experience</a>
           <a href="#contact" onClick={() => setMobileNavOpen(false)}>Let's Talk</a>
           {/* Social row in mobile drawer */}
