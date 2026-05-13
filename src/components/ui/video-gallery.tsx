@@ -545,47 +545,34 @@ function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
 
   return (
     <div
-      className={`vg-card ${hovered ? 'vg-card--hov' : ''}`}
+      className="vg-card-wrapper"
       style={{ animationDelay: `${(index % 12) * 40}ms` }}
-      onMouseEnter={enter}
-      onMouseLeave={leave}
-      onClick={onClick}
     >
-      <div className="vg-card-media">
-        {failed
-          ? <div className="vg-grad-fb"><Play size={28} strokeWidth={1} style={{ color: 'rgba(0,229,255,0.4)' }} /></div>
-          : poster
-          ? <img className="vg-poster" src={poster} alt={project.name} loading="lazy" />
-          : <div className="vg-shimmer"><div className="vg-shimmer-bar" /></div>
-        }
-        <video
-          ref={videoRef}
-          className={`vg-video ${hovered ? 'vg-video--vis' : ''}`}
-          src={src} muted loop playsInline preload="none"
-        />
-        <div className="vg-scan-line" />
-        {/* Title overlay — absolute inside media */}
-        <div style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0,
-          padding: '28px 12px 10px',
-          background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%)',
-          zIndex: 10, pointerEvents: 'none',
-        }}>
-          <div style={{
-            fontFamily: "'Outfit', sans-serif", fontSize: '0.73rem', fontWeight: 600,
-            color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.06em',
-            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
-            lineHeight: 1.3,
-          }}>
-            {project.name}
-          </div>
-          <div style={{
-            fontFamily: 'monospace', fontSize: '0.62rem', fontWeight: 400,
-            color: 'rgba(0,229,255,0.85)', letterSpacing: '0.12em', marginTop: '2px',
-          }}>
-            {project.year}
-          </div>
+      <div
+        className={`vg-card ${hovered ? 'vg-card--hov' : ''}`}
+        onMouseEnter={enter}
+        onMouseLeave={leave}
+        onClick={onClick}
+      >
+        <div className="vg-card-media">
+          {failed
+            ? <div className="vg-grad-fb"><Play size={28} strokeWidth={1} style={{ color: 'rgba(0,229,255,0.4)' }} /></div>
+            : poster
+            ? <img className="vg-poster" src={poster} alt={project.name} loading="lazy" />
+            : <div className="vg-shimmer"><div className="vg-shimmer-bar" /></div>
+          }
+          <video
+            ref={videoRef}
+            className={`vg-video ${hovered ? 'vg-video--vis' : ''}`}
+            src={src} muted loop playsInline preload="none"
+          />
+          <div className="vg-scan-line" />
         </div>
+      </div>
+      {/* Title sits outside the card — zero clipping issues */}
+      <div className="vg-card-label">
+        <span className="vg-card-label-name">{project.name}</span>
+        <span className="vg-card-label-year">{project.year}</span>
       </div>
     </div>
   )

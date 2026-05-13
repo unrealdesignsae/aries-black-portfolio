@@ -1314,22 +1314,56 @@ a {
   gap: 20px;
 }
 
+/* Card wrapper — grid item, holds card + label */
+.vg-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  animation: vgFadeUp 0.5s both;
+}
+
 /* Card */
 .vg-card {
   background: transparent;
   border: none;
   border-radius: 16px;
-  overflow: visible;
+  overflow: hidden;
   cursor: pointer;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+/* Label below the card */
+.vg-card-label {
   display: flex;
   flex-direction: column;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
-  animation: vgFadeUp 0.5s both;
+  gap: 2px;
+  padding: 0 4px;
+}
+.vg-card-label-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.73rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.vg-card-label-year {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.62rem;
+  color: rgba(0, 229, 255, 0.8);
+  letter-spacing: 0.12em;
 }
 
 .vg-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,229,255,0.25);
+}
+.vg-card-wrapper:hover .vg-card-label-name {
+  color: rgba(0, 229, 255, 0.9);
 }
 
 @keyframes vgFadeUp {
