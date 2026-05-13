@@ -564,14 +564,28 @@ function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
           src={src} muted loop playsInline preload="none"
         />
         <div className="vg-scan-line" />
-      </div>
-      {/* Title bar — outside media so overflow:hidden doesn't clip it */}
-      <div className="vg-card-title-bar">
-        <div className="vg-card-title-info">
-          <span className="vg-card-title-text">{project.name}</span>
-          <span className="vg-card-title-year">{project.year}</span>
+        {/* Title overlay — absolute inside media */}
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0,
+          padding: '28px 12px 10px',
+          background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, transparent 100%)',
+          zIndex: 10, pointerEvents: 'none',
+        }}>
+          <div style={{
+            fontFamily: "'Outfit', sans-serif", fontSize: '0.73rem', fontWeight: 600,
+            color: '#ffffff', textTransform: 'uppercase', letterSpacing: '0.06em',
+            whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+            lineHeight: 1.3,
+          }}>
+            {project.name}
+          </div>
+          <div style={{
+            fontFamily: 'monospace', fontSize: '0.62rem', fontWeight: 400,
+            color: 'rgba(0,229,255,0.85)', letterSpacing: '0.12em', marginTop: '2px',
+          }}>
+            {project.year}
+          </div>
         </div>
-        <Play size={14} fill="white" strokeWidth={0} style={{ flexShrink: 0 }} />
       </div>
     </div>
   )
