@@ -1,559 +1,528 @@
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react'
-import { Search, Grid3X3, List, Play, X, ChevronLeft, ChevronRight, ChevronDown, SlidersHorizontal } from 'lucide-react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
+import { Play, Pause, X, ChevronLeft, ChevronRight, Volume2, VolumeX, Maximize2, Minimize2, ChevronDown, RotateCcw } from 'lucide-react'
 import { R2_CDN } from '../../lib/cdn'
 
-// ── Project metadata ─────────────────────────────────────────────────────────
-const PROJECT_DATA: { file: string; title: string; category: string; featured?: boolean }[] = [
-  { file: 'video_1.mp4',  title: 'DAMAC Luxury Tower',           category: 'Architectural Viz', featured: true },
-  { file: 'video_2.mp4',  title: 'Ambient Desert Villa',          category: 'Architectural Viz' },
-  { file: 'video_3.mp4',  title: 'World Government Summit',       category: 'Event Design',      featured: true },
-  { file: 'video_4.mp4',  title: 'TAG Heuer Brand Activation',    category: 'Event Design' },
-  { file: 'video_5.mp4',  title: 'Real-Time Cityscape',           category: 'Real-Time UE5',    featured: true },
-  { file: 'video_6.mp4',  title: 'Montblanc Showcase',            category: 'Event Design' },
-  { file: 'video_7.mp4',  title: 'Dubai Marina Penthouse',        category: 'Architectural Viz' },
-  { file: 'video_8.mp4',  title: 'Samsung Galaxy Stage',          category: 'Event Design' },
-  { file: 'video_9.mp4',  title: 'Interior Light Study',          category: 'Look Dev' },
-  { file: 'video_10.mp4', title: 'Huawei Tech Conference',        category: 'Event Design' },
-  { file: 'video_11.mp4', title: 'Volumetric Fog Render',         category: 'Look Dev' },
-  { file: 'video_12.mp4', title: 'Omniyat Branded Residence',     category: 'Architectural Viz' },
-  { file: 'video_13.mp4', title: 'Night Skyline Study',           category: 'Real-Time UE5' },
-  { file: 'video_14.mp4', title: 'Richard Mille Pop-Up',          category: 'Event Design' },
-  { file: 'video_15.mp4', title: 'Dubai Holding Masterplan',      category: 'Architectural Viz' },
-  { file: 'video_16.mp4', title: 'Vodafone Arena Stage',          category: 'Event Design' },
-  { file: 'video_17.mp4', title: 'G20 Saudi Arabia Pavilion',     category: 'Event Design' },
-  { file: 'video_18.mp4', title: 'Warner Bros Cinematic Set',     category: 'Look Dev' },
-  { file: 'video_19.mp4', title: 'Ministry of Transport Hub',     category: 'Architectural Viz' },
-  { file: 'video_20.mp4', title: 'Sandstorm Environment',         category: 'Real-Time UE5' },
-  { file: 'video_21.mp4', title: 'Entourage Mega-Event Stage',    category: 'Event Design',     featured: true },
-  { file: 'video_22.mp4', title: 'Ambient Studio Landscape',      category: 'Architectural Viz' },
-  { file: 'video_23.mp4', title: 'OD Events Keynote Stage',       category: 'Event Design' },
-  { file: 'video_24.mp4', title: 'Glass Villa Interior',          category: 'Architectural Viz' },
-  { file: 'video_25.mp4', title: 'InDesign Showroom Cairo',       category: 'Architectural Viz' },
-  { file: 'video_26.mp4', title: 'Cinematic Character Rig',       category: 'Look Dev' },
-  { file: 'video_27.mp4', title: 'Hyperrealistic Terrain',        category: 'Real-Time UE5' },
-  { file: 'video_28.mp4', title: 'Luxury Retail Entrance',        category: 'Architectural Viz' },
+const PROJECT_FILES = [
+  'video_1.mp4',  'video_2.mp4',  'video_3.mp4',  'video_4.mp4',
+  'video_5.mp4',  'video_6.mp4',  'video_7.mp4',  'video_8.mp4',
+  'video_9.mp4',  'video_10.mp4', 'video_11.mp4', 'video_12.mp4',
+  'video_13.mp4', 'video_14.mp4', 'video_15.mp4', 'video_16.mp4',
+  'video_17.mp4', 'video_18.mp4', 'video_19.mp4', 'video_20.mp4',
+  'video_21.mp4', 'video_22.mp4', 'video_23.mp4', 'video_24.mp4',
+  'video_25.mp4', 'video_26.mp4', 'video_27.mp4', 'video_28.mp4',
 ]
 
-const ALL_CATEGORIES = ['All', 'Architectural Viz', 'Event Design', 'Real-Time UE5', 'Look Dev']
-
-// ── Category counts ───────────────────────────────────────────────────────────
-function getCategoryCounts() {
-  const counts: Record<string, number> = { All: PROJECT_DATA.length }
-  for (const p of PROJECT_DATA) {
-    counts[p.category] = (counts[p.category] || 0) + 1
-  }
-  return counts
-}
-
-// ── Queued poster generator (max 3 concurrent) ───────────────────────────────
+// ── Poster capture queue ──────────────────────────────────────────────────────
 const posterQueue: (() => void)[] = []
 let activePosters = 0
-const MAX_CONCURRENT_POSTERS = 3
+const MAX_CONCURRENT = 3
 
 function runNextPoster() {
-  if (activePosters >= MAX_CONCURRENT_POSTERS || posterQueue.length === 0) return
+  if (activePosters >= MAX_CONCURRENT || posterQueue.length === 0) return
   const next = posterQueue.shift()
   if (next) { activePosters++; next() }
 }
 
+function isBlackFrame(ctx: CanvasRenderingContext2D, w: number, h: number): boolean {
+  try {
+    const data = ctx.getImageData(0, 0, w, h).data
+    let sum = 0
+    const step = 4 * 8 // sample every 8th pixel for speed
+    for (let i = 0; i < data.length; i += step) sum += data[i] + data[i + 1] + data[i + 2]
+    const avg = sum / (data.length / step * 3)
+    return avg < 8 // treat frames with avg brightness <8/255 as black
+  } catch { return false }
+}
+
 function capturePoster(src: string): Promise<string | null> {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     const run = () => {
-      const video = document.createElement('video')
-      video.src = src
-      video.crossOrigin = 'anonymous'
-      video.muted = true
-      video.playsInline = true
-      video.preload = 'metadata'
+      const v = document.createElement('video')
+      v.src = src
+      v.crossOrigin = 'anonymous'
+      v.muted = true
+      v.playsInline = true
+      v.preload = 'metadata'
 
-      const cleanup = () => {
-        video.src = ''
-        video.load()
-        activePosters--
-        runNextPoster()
-      }
+      const cleanup = () => { v.src = ''; v.load(); activePosters--; runNextPoster() }
+      const timeout = setTimeout(() => { cleanup(); resolve(null) }, 20000)
 
-      const timeout = setTimeout(() => {
-        cleanup()
-        resolve(null)
-      }, 12000)
+      let attempt = 0
+      let bestUrl: string | null = null
 
-      const capture = () => {
-        clearTimeout(timeout)
+      const getSeekPoints = (dur: number) => [
+        dur * 0.15,
+        dur * 0.35,
+        dur * 0.55,
+        dur * 0.75,
+        Math.min(2, dur * 0.1),
+      ].map(t => Math.max(0.05, Math.min(t, dur - 0.05)))
+
+      const tryCapture = () => {
         try {
           const canvas = document.createElement('canvas')
-          canvas.width = 640
-          canvas.height = 360
+          canvas.width = 640; canvas.height = 360
           const ctx = canvas.getContext('2d', { willReadFrequently: true })
-          if (ctx) {
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.8)
-            cleanup()
-            resolve(dataUrl && dataUrl.length > 100 ? dataUrl : null)
-          } else {
-            cleanup()
-            resolve(null)
+          if (!ctx) { clearTimeout(timeout); cleanup(); resolve(null); return }
+          ctx.drawImage(v, 0, 0, 640, 360)
+          const url = canvas.toDataURL('image/jpeg', 0.82)
+          const valid = url && url.length > 500
+
+          if (valid && !isBlackFrame(ctx, 640, 360)) {
+            clearTimeout(timeout); cleanup(); resolve(url); return
           }
-        } catch {
-          cleanup()
-          resolve(null)
-        }
+          if (valid && !bestUrl) bestUrl = url
+
+          // Try next seek point
+          const points = getSeekPoints(v.duration)
+          attempt++
+          if (attempt < points.length) {
+            v.addEventListener('seeked', tryCapture, { once: true })
+            v.currentTime = points[attempt]
+          } else {
+            clearTimeout(timeout); cleanup(); resolve(bestUrl)
+          }
+        } catch { clearTimeout(timeout); cleanup(); resolve(bestUrl) }
       }
 
-      video.addEventListener('loadedmetadata', () => {
-        const seekTarget = Math.min(1, Math.max(0, video.duration - 0.1))
-        video.currentTime = seekTarget
+      v.addEventListener('loadedmetadata', () => {
+        const points = getSeekPoints(v.duration)
+        v.currentTime = points[0]
       }, { once: true })
-
-      video.addEventListener('seeked', capture, { once: true })
-      video.addEventListener('error', () => {
-        clearTimeout(timeout)
-        cleanup()
-        resolve(null)
-      }, { once: true })
-
-      video.load()
+      v.addEventListener('seeked', tryCapture, { once: true })
+      v.addEventListener('error', () => { clearTimeout(timeout); cleanup(); resolve(null) }, { once: true })
+      v.load()
     }
-
     posterQueue.push(run)
     runNextPoster()
   })
 }
 
 function usePoster(src: string) {
-  const [poster, setPoster] = useState<string>('')
+  const [poster, setPoster] = useState('')
   const [failed, setFailed] = useState(false)
-
   useEffect(() => {
     let cancelled = false
-
-    capturePoster(src).then(result => {
+    capturePoster(src).then(r => {
       if (cancelled) return
-      if (result) setPoster(result)
-      else setFailed(true)
+      if (r) setPoster(r); else setFailed(true)
     })
-
     return () => { cancelled = true }
   }, [src])
-
-
   return { poster, failed }
 }
 
-// ── Gradient fallback poster ──────────────────────────────────────────────────
-function GradientPoster({ title, category }: { title: string; category: string }) {
-  const gradients: Record<string, string> = {
-    'Architectural Viz': 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
-    'Event Design': 'linear-gradient(135deg, #1a1a1a 0%, #2d1b4e 50%, #1a1a2e 100%)',
-    'Real-Time UE5': 'linear-gradient(135deg, #0a1628 0%, #1a3a2a 50%, #0a1628 100%)',
-    'Look Dev': 'linear-gradient(135deg, #1a1a1a 0%, #2a1a0a 50%, #1a1a1a 100%)',
-  }
-  return (
-    <div className="vg-gradient-poster" style={{ background: gradients[category] || gradients['Look Dev'] }}>
-      <div className="vg-gradient-poster-inner">
-        <Play size={32} strokeWidth={1.5} />
-        <span>{title}</span>
-      </div>
-    </div>
-  )
+function fmt(s: number) {
+  if (!isFinite(s) || isNaN(s)) return '0:00'
+  const m = Math.floor(s / 60)
+  return `${m}:${Math.floor(s % 60).toString().padStart(2, '0')}`
 }
 
-// ── Video Card (Grid mode) ────────────────────────────────────────────────────
-function VideoCard({
-  project,
-  onClick,
-  index,
+// ── Premium Player Lightbox ───────────────────────────────────────────────────
+function PlayerLightbox({
+  index, total, onClose, onPrev, onNext,
 }: {
-  project: typeof PROJECT_DATA[0]
-  onClick: () => void
-  index: number
+  index: number; total: number
+  onClose: () => void; onPrev: () => void; onNext: () => void
 }) {
-  const src = `${R2_CDN}/${project.file}`
-  const { poster, failed } = usePoster(src)
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [hovered, setHovered] = useState(false)
-  const [progress, setProgress] = useState(0)
-  const progressInterval = useRef<ReturnType<typeof setInterval> | null>(null)
+  const src = `${R2_CDN}/${PROJECT_FILES[index]}`
+  const videoRef      = useRef<HTMLVideoElement>(null)
+  const containerRef  = useRef<HTMLDivElement>(null)
+  const seekRef       = useRef<HTMLDivElement>(null)
+  const hideRef       = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const clickTimer    = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const scrubbingRef  = useRef(false)
 
-  const handleMouseEnter = () => {
-    setHovered(true)
-    if (videoRef.current) {
-      videoRef.current.currentTime = 0
-      videoRef.current.play().catch(() => {})
-      // Start progress tracking
-      progressInterval.current = setInterval(() => {
-        if (videoRef.current && videoRef.current.duration) {
-          setProgress((videoRef.current.currentTime / videoRef.current.duration) * 100)
-        }
-      }, 100)
-    }
-  }
-  const handleMouseLeave = () => {
-    setHovered(false)
-    setProgress(0)
-    if (progressInterval.current) {
-      clearInterval(progressInterval.current)
-      progressInterval.current = null
-    }
-    if (videoRef.current) {
-      videoRef.current.pause()
-      videoRef.current.currentTime = 0
-    }
-  }
+  const [playing,   setPlaying]   = useState(false)
+  const [curTime,   setCurTime]   = useState(0)
+  const [dur,       setDur]       = useState(0)
+  const [vol,       setVol]       = useState(1)
+  const [muted,     setMuted]     = useState(false)
+  const [fullscr,   setFullscr]   = useState(false)
+  const [showCtrl,  setShowCtrl]  = useState(true)
+  const [waiting,   setWaiting]   = useState(false)
+  const [ended,     setEnded]     = useState(false)
+  const [buffered,  setBuffered]  = useState(0)       // 0–100 %
+  const [hoverPct,  setHoverPct]  = useState<number | null>(null) // 0–100 for tooltip
 
-  useEffect(() => {
-    return () => {
-      if (progressInterval.current) clearInterval(progressInterval.current)
+  // ── Buffered range ──────────────────────────────────────────────────────────
+  const updateBuffered = useCallback(() => {
+    const v = videoRef.current
+    if (!v || !v.duration) { setBuffered(0); return }
+    let end = 0
+    for (let i = 0; i < v.buffered.length; i++) {
+      if (v.buffered.start(i) <= v.currentTime + 0.01) {
+        end = Math.max(end, v.buffered.end(i))
+      }
     }
+    setBuffered((end / v.duration) * 100)
   }, [])
 
-  return (
-    <div
-      className={`vg-card ${project.featured ? 'vg-card--featured' : ''}`}
-      style={{ animationDelay: `${index * 40}ms` }}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-      onClick={onClick}
-    >
-      <div className="vg-card-media">
-        {failed ? (
-          <GradientPoster title={project.title} category={project.category} />
-        ) : poster ? (
-          <img className="vg-poster" src={poster} alt={project.title} loading="lazy" />
-        ) : (
-          <div className="vg-poster-loading">
-            <div className="vg-poster-loading-shimmer" />
-          </div>
-        )}
-        <video
-          ref={videoRef}
-          className={`vg-video ${hovered ? 'vg-video--visible' : ''}`}
-          src={src}
-          muted
-          loop
-          playsInline
-          preload="none"
-        />
-        <div className={`vg-overlay ${hovered ? 'vg-overlay--visible' : ''}`}>
-          <div className="vg-play-ring">
-            <Play size={24} fill="currentColor" />
-          </div>
-        </div>
-        <span className="vg-category-badge">{project.category}</span>
-        {/* Bottom gradient with title overlay */}
-        <div className="vg-card-bottom-overlay">
-          <h3 className="vg-title">{project.title}</h3>
-          <span className="vg-watch">Watch ›</span>
-        </div>
-        {/* Hover progress bar */}
-        <div className={`vg-hover-progress ${hovered ? 'vg-hover-progress--visible' : ''}`}>
-          <div className="vg-hover-progress-fill" style={{ width: `${progress}%` }} />
-        </div>
-      </div>
-    </div>
-  )
-}
+  // ── Toggle play ─────────────────────────────────────────────────────────────
+  const togglePlay = useCallback(() => {
+    const v = videoRef.current; if (!v) return
+    if (v.paused) v.play().then(() => { setPlaying(true); setEnded(false) }).catch(() => {})
+    else { v.pause(); setPlaying(false) }
+  }, [])
 
-// ── Video Card (List mode) ────────────────────────────────────────────────────
-function VideoListItem({
-  project,
-  onClick,
-  index,
-}: {
-  project: typeof PROJECT_DATA[0]
-  onClick: () => void
-  index: number
-}) {
-  const src = `${R2_CDN}/${project.file}`
-  const { poster, failed } = usePoster(src)
+  // ── Fullscreen ──────────────────────────────────────────────────────────────
+  const toggleFs = useCallback(() => {
+    const el = containerRef.current; if (!el) return
+    if (!document.fullscreenElement) el.requestFullscreen().catch(() => {})
+    else document.exitFullscreen().catch(() => {})
+  }, [])
 
-  return (
-    <div
-      className="vg-list-item"
-      style={{ animationDelay: `${index * 30}ms` }}
-      onClick={onClick}
-    >
-      <div className="vg-list-thumb">
-        {failed ? (
-          <GradientPoster title={project.title} category={project.category} />
-        ) : poster ? (
-          <img src={poster} alt={project.title} />
-        ) : (
-          <div className="vg-poster-loading"><div className="vg-poster-loading-shimmer" /></div>
-        )}
-        <div className="vg-list-play">
-          <Play size={16} fill="currentColor" />
-        </div>
-      </div>
-      <div className="vg-list-info">
-        <h3 className="vg-list-title">{project.title}</h3>
-        <span className="vg-list-category">{project.category}</span>
-      </div>
-      <span className="vg-list-watch">Watch ›</span>
-    </div>
-  )
-}
+  // ── Mute ────────────────────────────────────────────────────────────────────
+  const toggleMute = useCallback(() => {
+    const v = videoRef.current; if (!v) return
+    v.muted = !v.muted; setMuted(v.muted)
+  }, [])
 
-// ── Lightbox modal ────────────────────────────────────────────────────────────
-function Lightbox({
-  project,
-  onClose,
-  onPrev,
-  onNext,
-  currentIndex,
-  totalCount,
-}: {
-  project: typeof PROJECT_DATA[0]
-  onClose: () => void
-  onPrev: () => void
-  onNext: () => void
-  currentIndex: number
-  totalCount: number
-}) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
+  // ── Keyboard ────────────────────────────────────────────────────────────────
   useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-      if (e.key === 'ArrowRight') onNext()
-      if (e.key === 'ArrowLeft') onPrev()
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape')      { onClose(); return }
+      if (e.key === 'ArrowRight')  { e.preventDefault(); onNext() }
+      if (e.key === 'ArrowLeft')   { e.preventDefault(); onPrev() }
+      if (e.key === ' ')           { e.preventDefault(); togglePlay() }
+      if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFs() }
+      if (e.key === 'm' || e.key === 'M') toggleMute()
     }
-    document.addEventListener('keydown', handleKey)
-    return () => document.removeEventListener('keydown', handleKey)
-  }, [onClose, onNext, onPrev])
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onClose, onNext, onPrev, togglePlay, toggleFs, toggleMute])
 
+  // ── Lock scroll ─────────────────────────────────────────────────────────────
   useEffect(() => {
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [])
 
-  // Skip to 5 seconds when video loads
-  const handleLoadedMetadata = () => {
-    if (videoRef.current) {
-      const seekTarget = Math.min(5, Math.max(0, videoRef.current.duration - 0.1))
-      videoRef.current.currentTime = seekTarget
+  // ── Autoplay on src change ──────────────────────────────────────────────────
+  useEffect(() => {
+    const v = videoRef.current; if (!v) return
+    v.currentTime = 0
+    setCurTime(0); setDur(0); setPlaying(false); setBuffered(0); setEnded(false); setWaiting(false)
+    v.play().then(() => setPlaying(true)).catch(() => {})
+  }, [src])
+
+  // ── Global mouseup (for scrubbing outside seek bar) ─────────────────────────
+  useEffect(() => {
+    const onUp = () => { scrubbingRef.current = false }
+    window.addEventListener('mouseup', onUp)
+    return () => window.removeEventListener('mouseup', onUp)
+  }, [])
+
+  // ── Auto-hide controls ──────────────────────────────────────────────────────
+  const bump = useCallback(() => {
+    setShowCtrl(true)
+    if (hideRef.current) clearTimeout(hideRef.current)
+    hideRef.current = setTimeout(() => setShowCtrl(false), 3200)
+  }, [])
+
+  useEffect(() => {
+    if (!playing) { setShowCtrl(true); if (hideRef.current) clearTimeout(hideRef.current) }
+    else bump()
+    return () => { if (hideRef.current) clearTimeout(hideRef.current) }
+  }, [playing, bump])
+
+  // ── Fullscreen sync ─────────────────────────────────────────────────────────
+  useEffect(() => {
+    const onChange = () => setFullscr(!!document.fullscreenElement)
+    document.addEventListener('fullscreenchange', onChange)
+    return () => document.removeEventListener('fullscreenchange', onChange)
+  }, [])
+
+  // ── Volume ──────────────────────────────────────────────────────────────────
+  const changeVol = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = parseFloat(e.target.value)
+    const v = videoRef.current; if (!v) return
+    v.volume = val; setVol(val)
+    v.muted = val === 0; setMuted(val === 0)
+  }
+
+  // ── Scrub ───────────────────────────────────────────────────────────────────
+  const scrubTo = useCallback((clientX: number) => {
+    const bar = seekRef.current; const v = videoRef.current
+    if (!bar || !v || !dur) return
+    const rect = bar.getBoundingClientRect()
+    const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width))
+    v.currentTime = ratio * dur; setCurTime(ratio * dur)
+  }, [dur])
+
+  // ── Double-click → fullscreen, single → play/pause ─────────────────────────
+  const handleVideoClick = useCallback(() => {
+    if (clickTimer.current) {
+      clearTimeout(clickTimer.current)
+      clickTimer.current = null
+      toggleFs()
+    } else {
+      clickTimer.current = setTimeout(() => {
+        clickTimer.current = null
+        togglePlay()
+      }, 220)
     }
+  }, [togglePlay, toggleFs])
+
+  // ── Replay ──────────────────────────────────────────────────────────────────
+  const replay = useCallback(() => {
+    const v = videoRef.current; if (!v) return
+    v.currentTime = 0; setEnded(false)
+    v.play().then(() => setPlaying(true)).catch(() => {})
+  }, [])
+
+  const pct = dur > 0 ? (curTime / dur) * 100 : 0
+
+  const lightboxNode = (
+    <div className="vg-lightbox" onClick={onClose}>
+      <div
+        ref={containerRef}
+        className="vg-player-wrap"
+        onClick={e => e.stopPropagation()}
+        onMouseMove={bump}
+        onMouseLeave={() => playing && setShowCtrl(false)}
+      >
+        {/* Corner accents */}
+        <span className="vg-player-corner vg-player-corner--tl" />
+        <span className="vg-player-corner vg-player-corner--br" />
+
+        {/* Close */}
+        <button
+          className={`vg-player-close ${showCtrl ? 'vis' : ''}`}
+          onClick={onClose}
+          aria-label="Close"
+        >
+          <X size={15} />
+        </button>
+
+        {/* Counter */}
+        <div className={`vg-player-counter ${showCtrl ? 'vis' : ''}`}>
+          {String(index + 1).padStart(2, '0')}
+          <span style={{ opacity: 0.3 }}> / </span>
+          {String(total).padStart(2, '0')}
+        </div>
+
+        {/* Prev / Next */}
+        <button className={`vg-player-nav vg-player-prev ${showCtrl ? 'vis' : ''}`} onClick={onPrev} aria-label="Previous">
+          <ChevronLeft size={20} />
+        </button>
+        <button className={`vg-player-nav vg-player-next ${showCtrl ? 'vis' : ''}`} onClick={onNext} aria-label="Next">
+          <ChevronRight size={20} />
+        </button>
+
+        {/* Video */}
+        <video
+          ref={videoRef}
+          className="vg-player-video"
+          src={src}
+          playsInline
+          onClick={handleVideoClick}
+          onTimeUpdate={() => {
+            if (!scrubbingRef.current && videoRef.current) {
+              setCurTime(videoRef.current.currentTime)
+              updateBuffered()
+            }
+          }}
+          onLoadedMetadata={() => { if (videoRef.current) setDur(videoRef.current.duration) }}
+          onEnded={() => { setPlaying(false); setEnded(true); setShowCtrl(true) }}
+          onWaiting={() => setWaiting(true)}
+          onCanPlay={() => setWaiting(false)}
+          onPlaying={() => { setWaiting(false); setEnded(false) }}
+          onProgress={updateBuffered}
+        />
+
+        {/* Loading spinner */}
+        <div className={`vg-player-spinner ${waiting ? 'vg-player-spinner--vis' : ''}`}>
+          <svg viewBox="0 0 40 40" fill="none" className="vg-spin-svg">
+            <circle cx="20" cy="20" r="17" stroke="rgba(255,255,255,0.08)" strokeWidth="2.5" />
+            <circle
+              cx="20" cy="20" r="17"
+              stroke="rgba(0,229,255,0.85)"
+              strokeWidth="2.5"
+              strokeDasharray="44 63"
+              strokeLinecap="round"
+              strokeDashoffset="0"
+            />
+          </svg>
+        </div>
+
+        {/* Ended replay overlay */}
+        {ended && (
+          <div className="vg-player-ended" onClick={replay}>
+            <RotateCcw size={28} strokeWidth={1.5} />
+            <span>Replay</span>
+          </div>
+        )}
+
+        {/* Big play overlay (paused, not ended, not waiting) */}
+        {!playing && !ended && !waiting && (
+          <div className="vg-player-center-play vis" onClick={togglePlay}>
+            <Play size={32} fill="white" strokeWidth={0} />
+          </div>
+        )}
+
+        {/* Controls gradient bar */}
+        <div className={`vg-player-controls ${showCtrl ? 'vis' : ''}`}>
+
+          {/* ── Seek bar: 44px hit target, visual rail inside ── */}
+          <div
+            ref={seekRef}
+            className="vg-player-seek"
+            onMouseDown={e => { e.preventDefault(); scrubbingRef.current = true; scrubTo(e.clientX) }}
+            onMouseMove={e => {
+              if (scrubbingRef.current) scrubTo(e.clientX)
+              const rect = e.currentTarget.getBoundingClientRect()
+              setHoverPct(Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100)))
+            }}
+            onMouseLeave={() => setHoverPct(null)}
+            onClick={e => scrubTo(e.clientX)}
+          >
+            {/* Hover tooltip — positioned above 44px container */}
+            {hoverPct !== null && dur > 0 && (
+              <div
+                className="vg-seek-tooltip"
+                style={{ left: `clamp(26px, ${hoverPct}%, calc(100% - 26px))` }}
+              >
+                {fmt((hoverPct / 100) * dur)}
+              </div>
+            )}
+
+            {/* Visual rail — scaleY on hover, no layout shift */}
+            <div className="vg-player-seek-rail">
+              <div className="vg-player-seek-track" />
+              <div className="vg-player-seek-buffer" style={{ width: `${buffered}%` }} />
+              <div className="vg-player-seek-fill"   style={{ width: `${pct}%` }} />
+            </div>
+            {/* Thumb lives outside the scaled rail so it stays circular */}
+            <div className="vg-player-seek-thumb" style={{ left: `${pct}%` }} />
+          </div>
+
+          {/* ── Bottom bar ── */}
+          <div className="vg-player-bar">
+            <div className="vg-player-left">
+              <button className="vg-pb" onClick={togglePlay} aria-label={playing ? 'Pause' : 'Play'}>
+                {playing
+                  ? <Pause size={16} fill="white" strokeWidth={0} />
+                  : <Play  size={16} fill="white" strokeWidth={0} />}
+              </button>
+              <span className="vg-player-time">
+                {fmt(curTime)}
+                <span style={{ opacity: 0.3, margin: '0 5px' }}>/</span>
+                {fmt(dur)}
+              </span>
+            </div>
+
+            <div className="vg-player-right">
+              {/* Volume group — slider expands on hover */}
+              <div className="vg-vol-group">
+                <button className="vg-pb" onClick={toggleMute} aria-label={muted ? 'Unmute' : 'Mute'}>
+                  {muted || vol === 0 ? <VolumeX size={15} /> : <Volume2 size={15} />}
+                </button>
+                <div className="vg-vol-slider-wrap">
+                  <input
+                    type="range" min={0} max={1} step={0.02}
+                    value={muted ? 0 : vol}
+                    onChange={changeVol}
+                    className="vg-player-vol"
+                    aria-label="Volume"
+                    style={{ '--vol-pct': `${(muted ? 0 : vol) * 100}%` } as React.CSSProperties}
+                  />
+                </div>
+              </div>
+
+              <button className="vg-pb" onClick={toggleFs} aria-label="Fullscreen">
+                {fullscr ? <Minimize2 size={15} /> : <Maximize2 size={15} />}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+
+  return createPortal(lightboxNode, document.body)
+}
+
+// ── Video Card ────────────────────────────────────────────────────────────────
+function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
+  const src = `${R2_CDN}/${PROJECT_FILES[index]}`
+  const { poster, failed } = usePoster(src)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const [hovered, setHovered] = useState(false)
+
+  const enter = () => {
+    setHovered(true)
+    videoRef.current?.play().catch(() => {})
+  }
+  const leave = () => {
+    setHovered(false)
+    if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0 }
   }
 
   return (
-    <div className="vg-lightbox" onClick={onClose}>
-      <div className="vg-lightbox-inner" onClick={e => e.stopPropagation()}>
-        <button className="vg-lb-close" onClick={onClose} aria-label="Close"><X size={18} /></button>
-        <button className="vg-lb-nav vg-lb-prev" onClick={onPrev} aria-label="Previous"><ChevronLeft size={24} /></button>
-        <button className="vg-lb-nav vg-lb-next" onClick={onNext} aria-label="Next"><ChevronRight size={24} /></button>
-
+    <div
+      className={`vg-card ${hovered ? 'vg-card--hov' : ''}`}
+      style={{ animationDelay: `${(index % 12) * 40}ms` }}
+      onMouseEnter={enter}
+      onMouseLeave={leave}
+      onClick={onClick}
+    >
+      <div className="vg-card-media">
+        {failed
+          ? <div className="vg-grad-fb"><Play size={28} strokeWidth={1} style={{ color: 'rgba(0,229,255,0.4)' }} /></div>
+          : poster
+          ? <img className="vg-poster" src={poster} alt="" loading="lazy" />
+          : <div className="vg-shimmer"><div className="vg-shimmer-bar" /></div>
+        }
         <video
           ref={videoRef}
-          key={project.file}
-          className="vg-lb-video"
-          src={`${R2_CDN}/${project.file}`}
-          controls
-          autoPlay
-          playsInline
-          onLoadedMetadata={handleLoadedMetadata}
+          className={`vg-video ${hovered ? 'vg-video--vis' : ''}`}
+          src={src} muted loop playsInline preload="none"
         />
-        <div className="vg-lb-info">
-          <div className="vg-lb-info-left">
-            <span className="vg-lb-category">{project.category}</span>
-            <h2 className="vg-lb-title">{project.title}</h2>
-          </div>
-          <span className="vg-lb-counter">{currentIndex + 1} / {totalCount}</span>
+        <div className={`vg-play-hint ${hovered ? 'vg-play-hint--vis' : ''}`}>
+          <Play size={18} fill="white" strokeWidth={0} />
         </div>
+        <div className="vg-scan-line" />
       </div>
     </div>
   )
 }
 
-// ── Sorting ───────────────────────────────────────────────────────────────────
-type SortMode = 'default' | 'name' | 'category'
-
-function sortProjects(projects: typeof PROJECT_DATA, mode: SortMode) {
-  if (mode === 'default') return projects
-  return [...projects].sort((a, b) => {
-    if (mode === 'name') return a.title.localeCompare(b.title)
-    if (mode === 'category') return a.category.localeCompare(b.category)
-    return 0
-  })
-}
-
-// ── Main gallery component ────────────────────────────────────────────────────
+// ── Gallery ───────────────────────────────────────────────────────────────────
 export function VideoGallery() {
-  const [activeCategory, setActiveCategory] = useState('All')
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
-  const [sortMode, setSortMode] = useState<SortMode>('default')
-  const [showSortMenu, setShowSortMenu] = useState(false)
-  const [showAll, setShowAll] = useState(false)
-  const categoryCounts = useMemo(() => getCategoryCounts(), [])
-  const INITIAL_VISIBLE = 6
+  const [lightbox, setLightbox] = useState<number | null>(null)
+  const [showAll,  setShowAll]  = useState(false)
+  const INIT = 12
 
-  const filtered = useMemo(() => {
-    let result = activeCategory === 'All'
-      ? PROJECT_DATA
-      : PROJECT_DATA.filter(p => p.category === activeCategory)
+  const open  = useCallback((i: number) => setLightbox(i), [])
+  const close = useCallback(() => setLightbox(null), [])
+  const prev  = useCallback(() => setLightbox(i => i !== null ? (i - 1 + PROJECT_FILES.length) % PROJECT_FILES.length : null), [])
+  const next  = useCallback(() => setLightbox(i => i !== null ? (i + 1) % PROJECT_FILES.length : null), [])
 
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase()
-      result = result.filter(p =>
-        p.title.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q)
-      )
-    }
-
-    return sortProjects(result, sortMode)
-  }, [activeCategory, searchQuery, sortMode])
-
-  const openLightbox = useCallback((index: number) => setLightboxIndex(index), [])
-  const closeLightbox = useCallback(() => setLightboxIndex(null), [])
-  const prevLightbox = useCallback(() => setLightboxIndex(i => i !== null ? (i - 1 + filtered.length) % filtered.length : null), [filtered.length])
-  const nextLightbox = useCallback(() => setLightboxIndex(i => i !== null ? (i + 1) % filtered.length : null), [filtered.length])
+  const visible = showAll ? PROJECT_FILES : PROJECT_FILES.slice(0, INIT)
 
   return (
     <div className="vg-root">
-      {/* ── Toolbar: Search + View Toggle + Sort ── */}
-      <div className="vg-toolbar">
-        <div className="vg-search-wrapper">
-          <Search size={16} className="vg-search-icon" />
-          <input
-            type="text"
-            className="vg-search-input"
-            placeholder="Search projects..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-          />
-          {searchQuery && (
-            <button className="vg-search-clear" onClick={() => setSearchQuery('')}>
-              <X size={14} />
-            </button>
-          )}
-        </div>
-
-        <div className="vg-toolbar-right">
-          {/* Sort dropdown */}
-          <div className="vg-sort-wrapper">
-            <button
-              className={`vg-tool-btn ${showSortMenu ? 'vg-tool-btn--active' : ''}`}
-              onClick={() => setShowSortMenu(!showSortMenu)}
-              title="Sort"
-            >
-              <SlidersHorizontal size={16} />
-            </button>
-            {showSortMenu && (
-              <div className="vg-sort-menu">
-                {([['default', 'Default'], ['name', 'By Name'], ['category', 'By Category']] as const).map(([key, label]) => (
-                  <button
-                    key={key}
-                    className={`vg-sort-option ${sortMode === key ? 'vg-sort-option--active' : ''}`}
-                    onClick={() => { setSortMode(key); setShowSortMenu(false) }}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* View mode toggle */}
-          <div className="vg-view-toggle">
-            <button
-              className={`vg-tool-btn ${viewMode === 'grid' ? 'vg-tool-btn--active' : ''}`}
-              onClick={() => setViewMode('grid')}
-              title="Grid view"
-            >
-              <Grid3X3 size={16} />
-            </button>
-            <button
-              className={`vg-tool-btn ${viewMode === 'list' ? 'vg-tool-btn--active' : ''}`}
-              onClick={() => setViewMode('list')}
-              title="List view"
-            >
-              <List size={16} />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Filter pills with counts ── */}
-      <div className="vg-filters">
-        {ALL_CATEGORIES.map(cat => (
-          <button
-            key={cat}
-            className={`vg-filter-btn ${activeCategory === cat ? 'vg-filter-btn--active' : ''}`}
-            onClick={() => setActiveCategory(cat)}
-          >
-            {cat}
-            <span className="vg-filter-count">{categoryCounts[cat] || 0}</span>
-          </button>
+      <div className="vg-grid">
+        {visible.map((_, i) => (
+          <VideoCard key={PROJECT_FILES[i]} index={i} onClick={() => open(i)} />
         ))}
       </div>
 
-      {/* Results count */}
-      <p className="vg-count">{filtered.length} {filtered.length === 1 ? 'Project' : 'Projects'}</p>
-
-      {/* ── Grid View ── */}
-      {viewMode === 'grid' && (
-        <>
-          <div className="vg-grid" key={`grid-${activeCategory}-${searchQuery}`}>
-            {(showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE)).map((project, i) => (
-              <VideoCard
-                key={project.file}
-                project={project}
-                index={i}
-                onClick={() => openLightbox(i)}
-              />
-            ))}
-          </div>
-          {!showAll && filtered.length > INITIAL_VISIBLE && (
-            <button className="vg-show-more" onClick={() => setShowAll(true)}>
-              Show More
-              <ChevronDown size={18} />
-            </button>
-          )}
-        </>
+      {!showAll && PROJECT_FILES.length > INIT && (
+        <button className="vg-show-more" onClick={() => setShowAll(true)}>
+          Show All {PROJECT_FILES.length} Works <ChevronDown size={17} />
+        </button>
       )}
 
-      {/* ── List View ── */}
-      {viewMode === 'list' && (
-        <>
-          <div className="vg-list" key={`list-${activeCategory}-${searchQuery}`}>
-            {(showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE + 2)).map((project, i) => (
-              <VideoListItem
-                key={project.file}
-                project={project}
-                index={i}
-                onClick={() => openLightbox(i)}
-              />
-            ))}
-          </div>
-          {!showAll && filtered.length > INITIAL_VISIBLE + 2 && (
-            <button className="vg-show-more" onClick={() => setShowAll(true)}>
-              Show More
-              <ChevronDown size={18} />
-            </button>
-          )}
-        </>
-      )}
-
-      {/* Empty state */}
-      {filtered.length === 0 && (
-        <div className="vg-empty">
-          <p>No projects match your search.</p>
-          <button className="vg-empty-reset" onClick={() => { setSearchQuery(''); setActiveCategory('All') }}>
-            Reset filters
-          </button>
-        </div>
-      )}
-
-      {/* ── Lightbox ── */}
-      {lightboxIndex !== null && (
-        <Lightbox
-          project={filtered[lightboxIndex]}
-          onClose={closeLightbox}
-          onPrev={prevLightbox}
-          onNext={nextLightbox}
-          currentIndex={lightboxIndex}
-          totalCount={filtered.length}
+      {lightbox !== null && (
+        <PlayerLightbox
+          index={lightbox}
+          total={PROJECT_FILES.length}
+          onClose={close}
+          onPrev={prev}
+          onNext={next}
         />
       )}
     </div>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { cn } from "@/lib/utils"
 
 interface AnimatedTilesProps {
@@ -22,6 +22,24 @@ export function AnimatedTiles({
 }: AnimatedTilesProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const tilesRef = useRef<HTMLDivElement>(null)
+  // Responsive tile size — recalculates when container width changes
+  const [activeTileSize, setActiveTileSize] = useState(tileSize)
+
+  useEffect(() => {
+    if (!containerRef.current) return
+    const observer = new ResizeObserver(entries => {
+      for (const entry of entries) {
+        const availableWidth = entry.contentRect.width
+        if (availableWidth > 0) {
+          // Fit all cols within available width, never exceed the original tileSize
+          const computed = Math.floor(availableWidth / cols)
+          setActiveTileSize(Math.min(computed, tileSize))
+        }
+      }
+    })
+    observer.observe(containerRef.current)
+    return () => observer.disconnect()
+  }, [cols, tileSize])
 
   const maxOpacities = [
     [0.0, 0.2, 0.4, 0.6, 0.6, 0.4, 0.2, 0.0],
@@ -39,7 +57,7 @@ export function AnimatedTiles({
   ]
 
   useEffect(() => {
-    if (!tilesRef.current) return
+    if (!tilesRef.current || activeTileSize === 0) return
 
     const tiles: HTMLDivElement[] = []
     tilesRef.current.innerHTML = ""
@@ -48,11 +66,11 @@ export function AnimatedTiles({
       for (let col = 0; col < cols; col++) {
         const tile = document.createElement("div")
         tile.className = "tile"
-        tile.style.width = `${tileSize}px`
-        tile.style.height = `${tileSize}px`
+        tile.style.width = `${activeTileSize}px`
+        tile.style.height = `${activeTileSize}px`
         tile.style.backgroundImage = `url(${imageUrl})`
-        tile.style.backgroundPosition = `${-col * tileSize}px ${-row * tileSize}px`
-        tile.style.backgroundSize = `${cols * tileSize}px ${rows * tileSize}px`
+        tile.style.backgroundPosition = `${-col * activeTileSize}px ${-row * activeTileSize}px`
+        tile.style.backgroundSize = `${cols * activeTileSize}px ${rows * activeTileSize}px`
         tile.style.float = "left"
         tiles.push(tile)
         tilesRef.current.appendChild(tile)
@@ -96,21 +114,22 @@ export function AnimatedTiles({
     return () => {
       animationFrames.forEach((frameId) => cancelAnimationFrame(frameId))
     }
-  }, [rows, cols, tileSize, imageUrl])
+  }, [rows, cols, activeTileSize, imageUrl])
 
   return (
     <div
       ref={containerRef}
-      className={cn("flex justify-center items-center w-full min-h-[400px]", className)}
-      style={{ backgroundColor }}
+      className={cn("flex justify-center items-center w-full", className)}
+      style={{ backgroundColor, minHeight: activeTileSize > 0 ? `${rows * activeTileSize}px` : '400px' }}
     >
       <div
         ref={tilesRef}
         style={{
-          width: `${cols * tileSize}px`,
-          height: `${rows * tileSize}px`,
+          width: `${cols * activeTileSize}px`,
+          height: `${rows * activeTileSize}px`,
           position: "relative",
           overflow: "hidden",
+          flexShrink: 0,
         }}
       />
     </div>
