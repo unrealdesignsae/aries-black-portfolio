@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { createPortal } from 'react-dom'
-import { Play, Pause, X, ChevronLeft, ChevronRight, Volume2, VolumeX, Maximize2, Minimize2, RotateCcw } from 'lucide-react'
+import { Play, Pause, X, ChevronLeft, ChevronRight, Volume2, VolumeX, Maximize2, Minimize2, ChevronDown, RotateCcw } from 'lucide-react'
 import { R2_CDN } from '../../lib/cdn'
 
 const PROJECT_FILES = [
@@ -580,19 +580,29 @@ function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
 // ── Gallery ───────────────────────────────────────────────────────────────────
 export function VideoGallery() {
   const [lightbox, setLightbox] = useState<number | null>(null)
+  const [showAll,  setShowAll]  = useState(false)
+  const INIT = 12
 
   const open  = useCallback((i: number) => setLightbox(i), [])
   const close = useCallback(() => setLightbox(null), [])
   const prev  = useCallback(() => setLightbox(i => i !== null ? (i - 1 + PROJECT_FILES.length) % PROJECT_FILES.length : null), [])
   const next  = useCallback(() => setLightbox(i => i !== null ? (i + 1) % PROJECT_FILES.length : null), [])
 
+  const visible = showAll ? PROJECT_FILES : PROJECT_FILES.slice(0, INIT)
+
   return (
     <div className="vg-root">
       <div className="vg-grid">
-        {PROJECT_FILES.map((_, i) => (
+        {visible.map((_, i) => (
           <VideoCard key={PROJECT_FILES[i]} index={i} onClick={() => open(i)} />
         ))}
       </div>
+
+      {!showAll && PROJECT_FILES.length > INIT && (
+        <button className="vg-show-more" onClick={() => setShowAll(true)}>
+          Show All {PROJECT_FILES.length} Works <ChevronDown size={17} />
+        </button>
+      )}
 
       {lightbox !== null && (
         <PlayerLightbox
