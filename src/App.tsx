@@ -300,9 +300,10 @@ function App() {
             <h2>Event <em>Portfolio</em></h2>
             <p>62 luxury brand activations, product launches, and high-profile events delivered across the UAE and beyond.</p>
           </div>
-        </div>
-        <div className="reveal">
-          <ImageGallery />
+
+          <div className="reveal">
+            <ImageGallery />
+          </div>
         </div>
       </section>
 
