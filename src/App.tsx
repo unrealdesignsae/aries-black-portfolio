@@ -7,6 +7,7 @@ import GlitchCursor from "@/components/ui/glitch-cursor"
 import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
 import { ScannerCardStream } from "@/components/ui/scanner-card-stream"
+import { WorkPortfolio } from "@/components/ui/work-portfolio"
 import { LogoTimeline } from "@/components/ui/logo-timeline"
 import type { LogoItem } from "@/components/ui/logo-timeline"
 import {
@@ -170,6 +171,7 @@ function App() {
         <div className="nav-logo">AB.</div>
         <div className="nav-links">
           <a href="#about" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="About" /></a>
+          <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Work Portfolio" /></a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Live Work" /></a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Visualizations" /></a>
           <a href="#software-arsenal" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Tools" /></a>
@@ -216,6 +218,7 @@ function App() {
       {mobileNavOpen && (
         <div className="mobile-nav-drawer">
           <a href="#about" onClick={() => setMobileNavOpen(false)}>About</a>
+          <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}>Work Portfolio</a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}>Live Work</a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}>Visualizations</a>
           <a href="#software-arsenal" onClick={() => setMobileNavOpen(false)}>Tools</a>
@@ -292,11 +295,25 @@ function App() {
         </div>
       </section>
 
+      {/* ── WORK PORTFOLIO ── */}
+      <section id="work-portfolio" className="section portfolio-section">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="section-eyebrow">02 / Work Portfolio</span>
+            <h2>Event <em>Portfolio</em></h2>
+            <p>62 luxury brand activations, product launches, and high-profile events delivered across the UAE and beyond.</p>
+          </div>
+        </div>
+        <div className="reveal">
+          <WorkPortfolio />
+        </div>
+      </section>
+
       {/* ── YOUTUBE / LIVE PRODUCTION ── */}
       <section id="live-work" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">02 / Live Production</span>
+            <span className="section-eyebrow">03 / Live Production</span>
             <h2>On-Site <em>Footage</em></h2>
             <p>Real event footage from productions delivered across the region.</p>
           </div>
@@ -306,11 +323,11 @@ function App() {
         </div>
       </section>
 
-      {/* ── WORK ── */}
+      {/* ── VISUALIZATIONS ── */}
       <section id="portfolio" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">03 / Work</span>
+            <span className="section-eyebrow">04 / Visualizations</span>
             <h2>Featured <em>Visualizations</em></h2>
             <p>Curated archive of architectural visualizations, immersive stage designs, and real-time renders.</p>
           </div>
@@ -348,7 +365,7 @@ function App() {
       <section id="software-arsenal" className="section" style={{ padding: '5rem 0 2rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">03 / Tools</span>
+            <span className="section-eyebrow">05 / Tools</span>
             <h2>Software <em>Arsenal</em></h2>
             <p>Every tool in my workflow, organised by discipline — from photorealistic rendering to real-time worlds and agentic AI pipelines.</p>
           </div>
@@ -362,7 +379,7 @@ function App() {
       <section id="expertise" className="section dark-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">04 / Expertise</span>
+            <span className="section-eyebrow">06 / Expertise</span>
             <h2>Core <em>Disciplines</em></h2>
             <p>A decade of precision across every pillar of visual production — from photorealistic renders to real-time worlds and AI-driven pipelines.</p>
           </div>
@@ -399,7 +416,7 @@ function App() {
       <section id="ai-workflows" className="section" style={{ padding: '5rem 0 4rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">05 / AI</span>
+            <span className="section-eyebrow">07 / AI</span>
             <h2>Agentic AI for <em>Designers</em></h2>
             <p>Beyond tools — these are autonomous workflows. AI agents that generate, render, animate, and iterate at machine speed, compressing weeks of production into hours.</p>
           </div>
@@ -452,7 +469,7 @@ function App() {
       <section id="experience" className="section experience-section">
         <div className="container">
           <div className="section-header center reveal">
-            <span className="section-eyebrow">06 / Journey</span>
+            <span className="section-eyebrow">08 / Journey</span>
             <h2>Professional <em>Journey</em></h2>
           </div>
 
