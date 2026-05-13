@@ -13,35 +13,35 @@ const PROJECT_FILES = [
   'video_25.mp4', 'video_26.mp4', 'video_27.mp4', 'video_28.mp4',
 ]
 
-const PROJECT_NAMES = [
-  'Kings Cup Festival 2025',
-  'Hakura Cinematic Scene',
-  'Imtiaz Coca-Cola Arena Event',
-  'Roshn Cup Final Ceremony 2026',
-  'Montblanc Event 2023',
-  'Omniyat Launch Event 2024',
-  'Al Sharjah WIC 2026',
-  'Aries Black Showreel 2026',
-  'Hotel Design South Africa',
-  'Kings Cup Final 2026',
-  'Samurai Cinematic Scene',
-  'AlQadsiah Festival 2026',
-  'Burj Al Arab NYE 2024',
-  'Piaget Watches and Wonders 2024',
-  'Radamis Water Leisure',
-  'Dubai Police Event 2025',
-  'NGSC 2026',
-  'Saudi Game Awards',
-  'Saudi Media Forum',
-  'Imtiaz Launching Event 2024',
-  'Omniyat Lana Opening Event',
-  'Taqdeer Awarding Ceremony',
-  'AlQadsiah Event 2025',
-  'Residential Building AD',
-  'Saudi Rally Event 2025',
-  'Aries Black Showreel 2025',
-  'Piaget Event 2023',
-  'Roshn League Final Ceremony 2025',
+const PROJECTS: { name: string; year: string }[] = [
+  { name: 'Kings Cup Festival',          year: '2025' },
+  { name: 'Hakura Cinematic Scene',      year: '2025' },
+  { name: 'Imtiaz Coca-Cola Arena',      year: '2024' },
+  { name: 'Roshn Cup Final Ceremony',    year: '2026' },
+  { name: 'Montblanc Event',             year: '2023' },
+  { name: 'Omniyat Launch Event',        year: '2024' },
+  { name: 'Al Sharjah WIC',             year: '2026' },
+  { name: 'Aries Black Showreel',        year: '2026' },
+  { name: 'Hotel Design South Africa',   year: '2024' },
+  { name: 'Kings Cup Final',             year: '2026' },
+  { name: 'Samurai Cinematic Scene',     year: '2025' },
+  { name: 'AlQadsiah Festival',          year: '2026' },
+  { name: 'Burj Al Arab NYE',            year: '2024' },
+  { name: 'Piaget Watches & Wonders',    year: '2024' },
+  { name: 'Radamis Water Leisure',       year: '2025' },
+  { name: 'Dubai Police Event',          year: '2025' },
+  { name: 'NGSC',                        year: '2026' },
+  { name: 'Saudi Game Awards',           year: '2024' },
+  { name: 'Saudi Media Forum',           year: '2025' },
+  { name: 'Imtiaz Launching Event',      year: '2024' },
+  { name: 'Omniyat Lana Opening',        year: '2024' },
+  { name: 'Taqdeer Awarding Ceremony',   year: '2024' },
+  { name: 'AlQadsiah Event',             year: '2025' },
+  { name: 'Residential Building AD',     year: '2024' },
+  { name: 'Saudi Rally Event',           year: '2025' },
+  { name: 'Aries Black Showreel',        year: '2025' },
+  { name: 'Piaget Event',                year: '2023' },
+  { name: 'Roshn League Final Ceremony', year: '2025' },
 ]
 
 // ── Poster capture queue ──────────────────────────────────────────────────────
@@ -157,14 +157,14 @@ function PlayerLightbox({
   index: number; total: number
   onClose: () => void; onPrev: () => void; onNext: () => void
 }) {
-  const title = PROJECT_NAMES[index] ?? ''
-  return <PlayerLightboxInner index={index} total={total} title={title} onClose={onClose} onPrev={onPrev} onNext={onNext} />
+  const project = PROJECTS[index] ?? { name: '', year: '' }
+  return <PlayerLightboxInner index={index} total={total} title={project.name} year={project.year} onClose={onClose} onPrev={onPrev} onNext={onNext} />
 }
 
 function PlayerLightboxInner({
-  index, total, title, onClose, onPrev, onNext,
+  index, total, title, year, onClose, onPrev, onNext,
 }: {
-  index: number; total: number; title: string
+  index: number; total: number; title: string; year: string
   onClose: () => void; onPrev: () => void; onNext: () => void
 } {
   const src = `${R2_CDN}/${PROJECT_FILES[index]}`
@@ -372,7 +372,12 @@ function PlayerLightboxInner({
 
         {/* Title + Counter */}
         <div className={`vg-player-counter ${showCtrl ? 'vis' : ''}`}>
-          {title && <span className="vg-player-title">{title}</span>}
+          {title && (
+            <span className="vg-player-title">
+              {title}
+              {year && <span className="vg-player-title-year">{year}</span>}
+            </span>
+          )}
           <span className="vg-player-counter-num">
             {String(index + 1).padStart(2, '0')}
             <span style={{ opacity: 0.3 }}> / </span>
@@ -523,8 +528,8 @@ function PlayerLightboxInner({
 
 // ── Video Card ────────────────────────────────────────────────────────────────
 function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
-  const src   = `${R2_CDN}/${PROJECT_FILES[index]}`
-  const title = PROJECT_NAMES[index] ?? ''
+  const src     = `${R2_CDN}/${PROJECT_FILES[index]}`
+  const project = PROJECTS[index] ?? { name: '', year: '' }
   const { poster, failed } = usePoster(src)
   const videoRef = useRef<HTMLVideoElement>(null)
   const [hovered, setHovered] = useState(false)
@@ -560,7 +565,10 @@ function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
         />
         {/* Title overlay — always visible */}
         <div className="vg-card-title-bar">
-          <span className="vg-card-title-text">{title}</span>
+          <div className="vg-card-title-info">
+            <span className="vg-card-title-text">{project.name}</span>
+            <span className="vg-card-title-year">{project.year}</span>
+          </div>
           <Play size={14} fill="white" strokeWidth={0} style={{ flexShrink: 0 }} />
         </div>
         <div className="vg-scan-line" />
