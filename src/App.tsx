@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { AnimatedTiles } from "@/components/ui/animated-tiles"
 import { VideoGallery } from "@/components/ui/video-gallery"
+import { YouTubeGallery } from "@/components/ui/youtube-gallery"
 import GlitchCursor from "@/components/ui/glitch-cursor"
 import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
@@ -333,6 +334,20 @@ function App() {
           </div>
         </div>
         <LogoTimeline height="h-[490px]" showRowSeparator={true} items={softwareItems} />
+      </section>
+
+      {/* ── YOUTUBE / LIVE PRODUCTION ── */}
+      <section id="live-work" className="section portfolio-section">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="section-eyebrow">03.5 / Live Production</span>
+            <h2>On-Site <em>Footage</em></h2>
+            <p>Real event footage from productions delivered across the region.</p>
+          </div>
+          <div className="reveal">
+            <YouTubeGallery />
+          </div>
+        </div>
       </section>
 
       {/* ── CORE DISCIPLINES ── */}
