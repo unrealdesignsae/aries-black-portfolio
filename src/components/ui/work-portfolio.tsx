@@ -402,8 +402,11 @@ function ProjectCard({ project, idx, current, onNavigate, onGoTo }: CardProps) {
   )
 }
 
+const INITIAL_COUNT = 12
+
 export function WorkPortfolio() {
   const [slides, setSlides] = useState<Record<number, number>>({})
+  const [expanded, setExpanded] = useState(false)
 
   const goTo = useCallback((idx: number, si: number) => {
     setSlides(prev => ({ ...prev, [idx]: si }))
@@ -415,18 +418,29 @@ export function WorkPortfolio() {
     goTo(idx, (current + dir + total) % total)
   }, [slides, goTo])
 
+  const visible = expanded ? PROJECTS : PROJECTS.slice(0, INITIAL_COUNT)
+
   return (
-    <div className="wp-grid">
-      {PROJECTS.map((project, idx) => (
-        <ProjectCard
-          key={project.slug}
-          project={project}
-          idx={idx}
-          current={slides[idx] ?? 0}
-          onNavigate={navigate}
-          onGoTo={goTo}
-        />
-      ))}
-    </div>
+    <>
+      <div className="wp-grid">
+        {visible.map((project, idx) => (
+          <ProjectCard
+            key={project.slug}
+            project={project}
+            idx={idx}
+            current={slides[idx] ?? 0}
+            onNavigate={navigate}
+            onGoTo={goTo}
+          />
+        ))}
+      </div>
+      <div className="wp-show-more">
+        <button className="wp-show-more-btn" onClick={() => setExpanded(e => !e)}>
+          {expanded
+            ? `Show Less`
+            : `Show All ${PROJECTS.length} Projects`}
+        </button>
+      </div>
+    </>
   )
 }

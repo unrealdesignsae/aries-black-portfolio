@@ -171,13 +171,13 @@ function App() {
         <div className="nav-logo">AB.</div>
         <div className="nav-links">
           <a href="#about" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="About" /></a>
-          <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Work Portfolio" /></a>
-          <a href="#live-work" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Live Work" /></a>
-          <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Visualizations" /></a>
+          <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Portfolio" /></a>
+          <a href="#live-work" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Live" /></a>
+          <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="3D Work" /></a>
           <a href="#software-arsenal" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Tools" /></a>
           <a href="#expertise" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Expertise" /></a>
           <a href="#ai-workflows" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="AI" /></a>
-          <a href="#experience" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Experience" /></a>
+          <a href="#experience" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Journey" /></a>
         </div>
         <div className="nav-right">
           {/* Social + contact icons — desktop */}

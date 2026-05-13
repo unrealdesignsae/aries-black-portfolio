@@ -91,15 +91,17 @@ a {
 
 .nav-links {
     display: flex;
-    gap: 30px;
+    gap: 16px;
+    align-items: center;
 }
 
 .nav-links a {
-    font-size: 0.9rem;
+    font-size: 0.68rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.07em;
     color: var(--text-secondary);
     transition: color 0.3s;
+    white-space: nowrap;
 }
 
 .nav-links a:hover {
@@ -3811,10 +3813,11 @@ a {
 }
 
 .nav-links a {
-  font-size: 0.72rem;
-  letter-spacing: 0.16em;
-  color: rgba(255,255,255,0.45);
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  color: rgba(255,255,255,0.5);
   transition: color 0.25s;
+  white-space: nowrap;
 }
 
 .nav-links a:hover {
@@ -4492,4 +4495,30 @@ a {
   .wp-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px; }
   .wp-nav { opacity: 1; width: 32px; height: 32px; font-size: 1.1rem; }
   .wp-title { opacity: 1; transform: none; }
+}
+
+/* ── Work Portfolio Show More ── */
+.wp-show-more {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0 10px;
+}
+
+.wp-show-more-btn {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.65);
+  font-size: 0.7rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 14px 40px;
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s, background 0.25s;
+}
+
+.wp-show-more-btn:hover {
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  background: rgba(0,229,255,0.05);
 }
