@@ -18,6 +18,30 @@ const VIDEOS: YTVideo[] = [
   { id: 'OxgPWGVQItE', title: 'Imtiaz Coca-Cola Arena',      year: '2024' },
 ]
 
+// Fallback chain — 0.jpg is always a real video frame, never a gray placeholder
+const FALLBACKS = [
+  (id: string) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
+  (id: string) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
+  (id: string) => `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
+  (id: string) => `https://img.youtube.com/vi/${id}/1.jpg`,
+  (id: string) => `https://img.youtube.com/vi/${id}/2.jpg`,
+  (id: string) => `https://img.youtube.com/vi/${id}/0.jpg`,
+]
+
+function ThumbImage({ id, title }: { id: string; title: string }) {
+  const [idx, setIdx] = useState(0)
+
+  return (
+    <img
+      src={FALLBACKS[idx](id)}
+      alt={title}
+      className="yt-thumb-img"
+      loading="lazy"
+      onError={() => setIdx(i => Math.min(i + 1, FALLBACKS.length - 1))}
+    />
+  )
+}
+
 export function YouTubeGallery() {
   const [active, setActive] = useState(0)
   const video = VIDEOS[active]
@@ -43,7 +67,7 @@ export function YouTubeGallery() {
         </div>
       </div>
 
-      {/* ── Thumbnail strip — iframe-based so thumbnails always show ── */}
+      {/* ── Thumbnail strip ── */}
       <div className="yt-strip">
         {VIDEOS.map((v, i) => (
           <button
@@ -52,16 +76,7 @@ export function YouTubeGallery() {
             onClick={() => setActive(i)}
             aria-label={v.title}
           >
-            {/* Silent non-interactive iframe = guaranteed real thumbnail */}
-            <div className="yt-thumb-frame-wrap">
-              <iframe
-                src={`https://www.youtube.com/embed/${v.id}?autoplay=0&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1&mute=1`}
-                title={v.title}
-                className="yt-thumb-frame"
-                tabIndex={-1}
-                loading="lazy"
-              />
-            </div>
+            <ThumbImage id={v.id} title={v.title} />
             <div className="yt-thumb-overlay">
               <span className="yt-thumb-title">{v.title}</span>
               <span className="yt-thumb-year">{v.year}</span>
