@@ -9,16 +9,25 @@ interface YTVideo {
 }
 
 const VIDEOS: YTVideo[] = [
-  { id: 'PCqxjF6C2mI', title: 'AlQadsiah Festival',      year: '2025' },
-  { id: 'fGi3B30yBR0', title: 'AlUla Desert Polo',       year: '2025' },
-  { id: 'GfA8L693FNs', title: 'AlFursan',                year: '2025' },
-  { id: '5iwd5Mgpm1Q', title: 'Omniyat Orla Launch',     year: '2024' },
-  { id: 'aH5qIUq-ZG0', title: 'Roshn',                   year: '2025' },
-  { id: 'memB01oIa-U', title: 'Production Reel',         year: '2025' },
+  { id: 'PCqxjF6C2mI', title: 'AlQadsiah Festival',          year: '2025' },
+  { id: 'fGi3B30yBR0', title: 'AlUla Desert Polo',           year: '2025' },
+  { id: 'GfA8L693FNs', title: 'AlFursan',                    year: '2025' },
+  { id: '5iwd5Mgpm1Q', title: 'Omniyat Orla Launch',         year: '2024' },
+  { id: 'aH5qIUq-ZG0', title: 'Roshn',                       year: '2025' },
+  { id: 'memB01oIa-U', title: 'Piaget Watches and Wonders',  year: '2024' },
 ]
 
-function thumb(id: string) {
-  return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`
+function ThumbImage({ id, title }: { id: string; title: string }) {
+  const [src, setSrc] = useState(`https://img.youtube.com/vi/${id}/maxresdefault.jpg`)
+  return (
+    <img
+      src={src}
+      alt={title}
+      className="yt-thumb-img"
+      loading="lazy"
+      onError={() => setSrc(`https://img.youtube.com/vi/${id}/hqdefault.jpg`)}
+    />
+  )
 }
 
 export function YouTubeGallery() {
@@ -54,12 +63,7 @@ export function YouTubeGallery() {
             onClick={() => setActive(i)}
             aria-label={v.title}
           >
-            <img
-              src={thumb(v.id)}
-              alt={v.title}
-              className="yt-thumb-img"
-              loading="lazy"
-            />
+            <ThumbImage id={v.id} title={v.title} />
             <div className="yt-thumb-overlay">
               <span className="yt-thumb-title">{v.title}</span>
               <span className="yt-thumb-year">{v.year}</span>

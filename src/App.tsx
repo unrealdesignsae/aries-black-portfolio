@@ -286,11 +286,25 @@ function App() {
         </div>
       </section>
 
+      {/* ── YOUTUBE / LIVE PRODUCTION ── */}
+      <section id="live-work" className="section portfolio-section">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="section-eyebrow">02 / Live Production</span>
+            <h2>On-Site <em>Footage</em></h2>
+            <p>Real event footage from productions delivered across the region.</p>
+          </div>
+          <div className="reveal">
+            <YouTubeGallery />
+          </div>
+        </div>
+      </section>
+
       {/* ── WORK ── */}
       <section id="portfolio" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">02 / Work</span>
+            <span className="section-eyebrow">03 / Work</span>
             <h2>Featured <em>Visualizations</em></h2>
             <p>Curated archive of architectural visualizations, immersive stage designs, and real-time renders.</p>
           </div>
@@ -336,19 +350,7 @@ function App() {
         <LogoTimeline height="h-[490px]" showRowSeparator={true} items={softwareItems} />
       </section>
 
-      {/* ── YOUTUBE / LIVE PRODUCTION ── */}
-      <section id="live-work" className="section portfolio-section">
-        <div className="container">
-          <div className="section-header reveal">
-            <span className="section-eyebrow">03.5 / Live Production</span>
-            <h2>On-Site <em>Footage</em></h2>
-            <p>Real event footage from productions delivered across the region.</p>
-          </div>
-          <div className="reveal">
-            <YouTubeGallery />
-          </div>
-        </div>
-      </section>
+
 
       {/* ── CORE DISCIPLINES ── */}
       <section id="expertise" className="section dark-section">
