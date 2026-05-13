@@ -2411,7 +2411,7 @@ a {
   transform: translate(-50%, -50%) scale(1);
 }
 
-/* Card title bar — slides up from bottom on hover */
+/* Card title bar — always visible */
 .vg-card-title-bar {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -2419,18 +2419,12 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 10px 12px;
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.25s ease, transform 0.25s ease;
+  padding: 22px 12px 10px;
+  background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
   z-index: 5;
   pointer-events: none;
 }
-.vg-card-title-bar--vis {
-  opacity: 1;
-  transform: translateY(0);
-}
+.vg-card-title-bar--vis { /* kept for compat */ }
 .vg-card-title-text {
   font-family: var(--font-body, 'Outfit', sans-serif);
   font-size: 0.72rem;

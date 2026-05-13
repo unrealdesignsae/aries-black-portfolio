@@ -558,8 +558,8 @@ function VideoCard({ index, onClick }: { index: number; onClick: () => void }) {
           className={`vg-video ${hovered ? 'vg-video--vis' : ''}`}
           src={src} muted loop playsInline preload="none"
         />
-        {/* Title overlay — slides up on hover */}
-        <div className={`vg-card-title-bar ${hovered ? 'vg-card-title-bar--vis' : ''}`}>
+        {/* Title overlay — always visible */}
+        <div className="vg-card-title-bar">
           <span className="vg-card-title-text">{title}</span>
           <Play size={14} fill="white" strokeWidth={0} style={{ flexShrink: 0 }} />
         </div>
