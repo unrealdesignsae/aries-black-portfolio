@@ -3871,7 +3871,8 @@ a {
 /* ── Section title clip-path reveal ── */
 .section-header h2,
 .about-headline {
-  overflow: hidden;
+  overflow: visible;
+  padding-bottom: 0.1em;
 }
 
 .section-header h2::after,
