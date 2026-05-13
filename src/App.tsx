@@ -277,8 +277,9 @@ function App() {
             <div className="about-content reveal">
               <span className="section-eyebrow">01 / About</span>
               <h2 className="about-headline">The Architect<br />of <em>Experience.</em></h2>
-              <p>I am a Senior CG Generalist and Designer with over a decade of experience transforming concepts into visceral realities. From photorealistic architectural visualization to massive experiential stages in Dubai, I merge technical precision with cinematic lighting.</p>
-              <p>My work across the UAE has supported giants like TAG Heuer, Montblanc, and the World Government Summit — turning visionary ideas into immersive 3D, real-time, and built environments.</p>
+              <p>I started with a drafting pen in Cairo. Now I build worlds — stages that hold thousands, renders that sell billion-dirham developments, real-time environments running at 60fps inside Dubai's most ambitious events. Twelve years of craft distilled into a single discipline: making the impossible look inevitable.</p>
+              <p>As Senior CG Generalist and Technical Art Director at Entourage Marketing &amp; Events, I own the full production chain. Concept through delivery. TAG Heuer, Montblanc, Richard Mille, Warner Bros, the World Government Summit, G20 Saudi Arabia — these aren't client logos, they're proving grounds.</p>
+              <p>I've also built agentic AI pipelines using Claude, ComfyUI, and RunwayML that compress weeks of production into hours. The tools are changing. My edge is knowing how to use all of them at once.</p>
             </div>
           </div>
         </div>
@@ -389,14 +390,22 @@ function App() {
           friction={0.96}
           scanEffect="scramble"
           cardImages={[
+            // Mega event / expo hall — large-scale production
             'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+            // Concert stage with dramatic lighting rig
+            'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800&q=80',
+            // Corporate keynote / conference stage setup
+            'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80',
+            // Arena stage — grand-scale event production
+            'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80',
+            // Live crowd / experiential event energy
             'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
-            'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-            'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
-            'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80',
-            'https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&q=80',
+            // Exhibition / brand activation setup
+            'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&q=80',
+            // Stage production with lighting design
             'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80',
-            'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80',
+            // Architectural visualization — modern structure
+            'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80',
           ]}
         />
 
