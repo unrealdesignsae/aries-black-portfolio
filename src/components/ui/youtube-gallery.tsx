@@ -18,28 +18,13 @@ const VIDEOS: YTVideo[] = [
   { id: 'OxgPWGVQItE', title: 'Imtiaz Coca-Cola Arena',      year: '2024' },
 ]
 
-const FALLBACKS = ['maxresdefault', 'sddefault', 'hqdefault', 'mqdefault']
-
-function ThumbImage({ id, title }: { id: string; title: string }) {
-  const [attempt, setAttempt] = useState(0)
-  const quality = FALLBACKS[attempt]
-  return (
-    <img
-      src={`https://img.youtube.com/vi/${id}/${quality}.jpg`}
-      alt={title}
-      className="yt-thumb-img"
-      loading="lazy"
-      onError={() => { if (attempt < FALLBACKS.length - 1) setAttempt(a => a + 1) }}
-    />
-  )
-}
-
 export function YouTubeGallery() {
   const [active, setActive] = useState(0)
   const video = VIDEOS[active]
 
   return (
     <div className="yt-gallery">
+
       {/* ── Main player ── */}
       <div className="yt-player-wrap">
         <div className="yt-player-inner">
@@ -58,7 +43,7 @@ export function YouTubeGallery() {
         </div>
       </div>
 
-      {/* ── Thumbnail strip ── */}
+      {/* ── Thumbnail strip — iframe-based so thumbnails always show ── */}
       <div className="yt-strip">
         {VIDEOS.map((v, i) => (
           <button
@@ -67,7 +52,16 @@ export function YouTubeGallery() {
             onClick={() => setActive(i)}
             aria-label={v.title}
           >
-            <ThumbImage id={v.id} title={v.title} />
+            {/* Silent non-interactive iframe = guaranteed real thumbnail */}
+            <div className="yt-thumb-frame-wrap">
+              <iframe
+                src={`https://www.youtube.com/embed/${v.id}?autoplay=0&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1&mute=1`}
+                title={v.title}
+                className="yt-thumb-frame"
+                tabIndex={-1}
+                loading="lazy"
+              />
+            </div>
             <div className="yt-thumb-overlay">
               <span className="yt-thumb-title">{v.title}</span>
               <span className="yt-thumb-year">{v.year}</span>
