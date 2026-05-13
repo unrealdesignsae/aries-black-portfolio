@@ -1319,8 +1319,10 @@ a {
   background: transparent;
   border: none;
   border-radius: 16px;
-  overflow: hidden;
+  overflow: visible;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   animation: vgFadeUp 0.5s both;
 }
