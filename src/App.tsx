@@ -277,9 +277,9 @@ function App() {
             <div className="about-content reveal">
               <span className="section-eyebrow">01 / About</span>
               <h2 className="about-headline">The Architect<br />of <em>Experience.</em></h2>
-              <p>I started with a drafting pen in Cairo. Now I build worlds — stages that hold thousands, renders that sell billion-dirham developments, real-time environments running at 60fps inside Dubai's most ambitious events. Twelve years of craft distilled into a single discipline: making the impossible look inevitable.</p>
-              <p>As Senior CG Generalist and Technical Art Director at Entourage Marketing &amp; Events, I own the full production chain. Concept through delivery. TAG Heuer, Montblanc, Richard Mille, Warner Bros, the World Government Summit, G20 Saudi Arabia — these aren't client logos, they're proving grounds.</p>
-              <p>I've also built agentic AI pipelines using Claude, ComfyUI, and RunwayML that compress weeks of production into hours. The tools are changing. My edge is knowing how to use all of them at once.</p>
+              <p>I'm a Senior CG Generalist and Technical Art Director with 12 years of experience in 3D visualization, experiential design, and real-time environments.</p>
+              <p>Based in Dubai, I work across the full creative and technical pipeline — from concept renders and architectural visualization to stage design and Unreal Engine 5 productions. I've delivered work for over 50 brands globally, including TAG Heuer, Montblanc, Richard Mille, Warner Bros, and high-profile government events including the World Government Summit and G20 Saudi Arabia.</p>
+              <p>My workflow increasingly incorporates AI tools for generation, animation, and automation — keeping production timelines lean without compromising the quality of the final output.</p>
             </div>
           </div>
         </div>
