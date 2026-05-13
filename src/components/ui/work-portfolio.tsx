@@ -59,11 +59,6 @@ const PROJECTS: Project[] = [
     images: seq('https://www.odevent.com/wp-content/uploads/2019/11/www.odevent.com-tagheuer-porche-formulaechampionship-saudi-2019-', 1, 16),
   },
   {
-    slug: 'tag-heuer-porsche-gif',
-    title: 'TAG HEUER – PORSCHE FORMULA E CHAMPIONSHIP SAUDI',
-    images: seq('https://www.odevent.com/wp-content/uploads/2019/11/www.odevent.com-tagheuer-porche-formulaechampionship-saudi-2019-', 1, 16, 'gif'),
-  },
-  {
     slug: 'puma-maybelline',
     title: 'PUMA – MAYBELLINE PROMENADE MALL KUWAIT',
     images: seq('https://www.odevent.com/wp-content/uploads/2019/10/www.odevent.com-puma-maybelline-launch-kuwait-', 1, 15),
@@ -403,6 +398,7 @@ function ProjectCard({ project, idx, current, onNavigate, onGoTo }: CardProps) {
 }
 
 const INITIAL_COUNT = 12
+const TOTAL = PROJECTS.length
 
 export function WorkPortfolio() {
   const [slides, setSlides] = useState<Record<number, number>>({})
@@ -436,9 +432,7 @@ export function WorkPortfolio() {
       </div>
       <div className="wp-show-more">
         <button className="wp-show-more-btn" onClick={() => setExpanded(e => !e)}>
-          {expanded
-            ? `Show Less`
-            : `Show All ${PROJECTS.length} Projects`}
+          {expanded ? `Show Less` : `Show All ${TOTAL} Projects`}
         </button>
       </div>
     </>

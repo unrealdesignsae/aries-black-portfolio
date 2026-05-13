@@ -4506,20 +4506,23 @@ a {
 }
 
 .wp-show-more-btn {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.15);
-  color: rgba(255,255,255,0.65);
-  font-size: 0.7rem;
+  background: var(--text-primary);
+  color: var(--bg-color);
+  border: none;
+  font-size: 0.75rem;
   font-family: var(--font-body);
-  letter-spacing: 0.18em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 14px 40px;
+  padding: 15px 40px;
   cursor: pointer;
-  transition: border-color 0.25s, color 0.25s, background 0.25s;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s, transform 0.3s;
 }
 
 .wp-show-more-btn:hover {
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
-  background: rgba(0,229,255,0.05);
+  background: var(--text-secondary);
+  transform: translateY(-2px);
 }
