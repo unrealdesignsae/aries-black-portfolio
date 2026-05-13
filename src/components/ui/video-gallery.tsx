@@ -166,7 +166,7 @@ function PlayerLightboxInner({
 }: {
   index: number; total: number; title: string; year: string
   onClose: () => void; onPrev: () => void; onNext: () => void
-} {
+}) {
   const src = `${R2_CDN}/${PROJECT_FILES[index]}`
   const videoRef      = useRef<HTMLVideoElement>(null)
   const containerRef  = useRef<HTMLDivElement>(null)
