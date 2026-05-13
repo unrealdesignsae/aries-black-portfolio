@@ -6,7 +6,7 @@ import { YouTubeGallery } from "@/components/ui/youtube-gallery"
 import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
 import { ScannerCardStream } from "@/components/ui/scanner-card-stream"
-import { WorkPortfolio } from "@/components/ui/work-portfolio"
+import { ImageGallery } from "@/components/ui/image-gallery"
 import { LogoTimeline } from "@/components/ui/logo-timeline"
 import type { LogoItem } from "@/components/ui/logo-timeline"
 import {
@@ -302,7 +302,7 @@ function App() {
           </div>
         </div>
         <div className="reveal">
-          <WorkPortfolio />
+          <ImageGallery />
         </div>
       </section>
 
