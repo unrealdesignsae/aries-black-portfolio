@@ -62,6 +62,7 @@ export function ProjectCarousel({ title, venue, src, onClose }: Props) {
 
   const node = (
     <div
+      className="pc-modal-overlay"
       onClick={onClose}
       style={{
         position: 'fixed', inset: 0, zIndex: 9999,
@@ -73,6 +74,7 @@ export function ProjectCarousel({ title, venue, src, onClose }: Props) {
       }}
     >
       <div
+        className="pc-modal-inner"
         onClick={e => e.stopPropagation()}
         style={{
           position: 'relative',
@@ -159,6 +161,7 @@ export function ProjectCarousel({ title, venue, src, onClose }: Props) {
                   style={{ flex: '0 0 100%', minWidth: 0 }}
                 >
                   <img
+                    className="pc-modal-image"
                     src={img}
                     alt={`${title} ${i + 1}`}
                     style={{
@@ -176,6 +179,7 @@ export function ProjectCarousel({ title, venue, src, onClose }: Props) {
             {images.length > 1 && (
               <>
                 <Carousel.PrevTrigger
+                  className="pc-nav-btn"
                   style={{
                     position: 'absolute', top: '50%', left: '14px',
                     transform: 'translateY(-50%)',
@@ -202,6 +206,7 @@ export function ProjectCarousel({ title, venue, src, onClose }: Props) {
                 </Carousel.PrevTrigger>
 
                 <Carousel.NextTrigger
+                  className="pc-nav-btn pc-nav-btn-next"
                   style={{
                     position: 'absolute', top: '50%', right: '14px',
                     transform: 'translateY(-50%)',
@@ -267,11 +272,33 @@ export function ProjectCarousel({ title, venue, src, onClose }: Props) {
         )}
       </div>
 
-      {/* Dot active state */}
       <style>{`
         .pc-dot[data-current] {
           background: rgba(0,229,255,0.9) !important;
           transform: scale(1.3);
+        }
+        @media (max-width: 768px) {
+          .pc-modal-overlay {
+            padding: 0 !important;
+            align-items: flex-end !important;
+          }
+          .pc-modal-inner {
+            border-radius: 20px 20px 0 0 !important;
+            max-width: 100% !important;
+            width: 100% !important;
+          }
+          .pc-modal-image {
+            height: clamp(220px, 56vw, 380px) !important;
+          }
+          .pc-nav-btn {
+            width: 32px !important;
+            height: 32px !important;
+            left: 8px !important;
+          }
+          .pc-nav-btn-next {
+            left: auto !important;
+            right: 8px !important;
+          }
         }
       `}</style>
     </div>

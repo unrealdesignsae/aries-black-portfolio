@@ -4526,3 +4526,155 @@ a {
   background: var(--text-secondary);
   transform: translateY(-2px);
 }
+
+/* ============================================================
+   COMPREHENSIVE MOBILE & DESKTOP RESPONSIVE REVISION
+   ============================================================ */
+
+/* ── Desktop polish ─────────────────────────────────────────── */
+.section-eyebrow {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0,229,255,0.75);
+  font-family: 'SF Mono','Fira Code',monospace;
+  margin-bottom: 14px;
+}
+
+.about-headline {
+  font-size: clamp(2rem, 4vw, 3.2rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -1px !important;
+  overflow: visible !important;
+  padding-bottom: 0.1em !important;
+}
+
+/* ── Tablet (≤900px) ────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .section { padding: 72px 0; }
+  .section-header { margin-bottom: 40px; }
+  .section-header h2 { font-size: 2.1rem; }
+  .section-header p { font-size: 1rem; max-width: 100%; }
+  .about-grid { gap: 36px; }
+}
+
+/* ── Mobile (≤768px) ────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Section spacing */
+  .section { padding: 60px 0; }
+  .section-header { margin-bottom: 32px; }
+  .section-header h2 { font-size: 1.95rem; }
+  .section-header p { font-size: 0.9rem; }
+  .section-eyebrow { font-size: 0.6rem; margin-bottom: 10px; }
+
+  /* Nav — tighter padding, prevents 85px height */
+  .navbar { padding: 12px 5%; }
+  .navbar.scrolled { padding: 10px 5%; }
+  .nav-logo { font-size: 1.2rem; }
+  .mobile-nav-drawer { top: 58px; }
+  .mobile-nav-drawer a { padding: 15px 6%; font-size: 1rem; letter-spacing: 1.5px; }
+
+  /* Hero */
+  .hero { padding: 0 5%; min-height: 100svh; }
+  .hero-content { margin-top: 20px; }
+  .tagline {
+    font-size: clamp(0.72rem, 3.5vw, 0.9rem);
+    margin-bottom: 28px;
+    letter-spacing: 0.02em;
+  }
+  .hero-stats { margin-bottom: 32px; }
+  .stat { padding: 0 14px; }
+  .stat-number { font-size: 1.9rem; }
+  .stat-label { font-size: 0.6rem; letter-spacing: 0.1em; }
+  .cta-button { font-size: 0.9rem; padding: 12px 26px; gap: 8px; }
+
+  /* About */
+  .about-grid { gap: 24px; }
+  .about-content p { font-size: 0.92rem; }
+  .about-headline { font-size: clamp(1.8rem, 7vw, 2.4rem) !important; }
+
+  /* Gallery grids — 2 columns on mobile */
+  .vg-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+  .vg-show-more { max-width: 100%; font-size: 0.8rem; padding: 13px 20px; margin-top: 24px; }
+  .vg-card { border-radius: 10px; }
+  .vg-card-media { border-radius: 10px; }
+  .vg-card-label-name { font-size: 0.65rem; }
+  .vg-card-label-year { font-size: 0.55rem; }
+
+  /* Skills */
+  .skills-list--grid { gap: 10px; }
+  .skills-list--grid li { padding: 16px; }
+  .skills-list li h4 { font-size: 1.1rem; }
+
+  /* Timeline */
+  .timeline-item { padding-left: 22px; }
+  .timeline-content.glass-card { padding: 18px 16px; }
+  .timeline-content .date { font-size: 0.62rem; }
+  .timeline-content .role { font-size: 1rem; }
+  .timeline-content .company { font-size: 0.8rem; }
+  .timeline-content p { font-size: 0.88rem; }
+
+  /* Footer */
+  .footer-v2 { padding: 64px 0 36px; }
+  .footer-v2-headline {
+    font-size: clamp(2.4rem, 11vw, 4rem) !important;
+    letter-spacing: -2px;
+    line-height: 1.0;
+  }
+  .footer-v2-glow { width: 100% !important; max-width: 420px; }
+  .footer-v2-bottom { flex-direction: column; gap: 6px; text-align: center; }
+  .footer-v2-social { gap: 0; }
+  .footer-v2-social-item { padding: 14px 0; }
+  .footer-v2-link { padding: 18px 0; }
+  .footer-v2-link-value { font-size: 0.78rem; }
+
+  /* Project carousel — full-width sheet on mobile */
+  .pc-modal-overlay { padding: 0 !important; align-items: flex-end !important; }
+  .pc-modal-inner {
+    border-radius: 20px 20px 0 0 !important;
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .pc-modal-image {
+    height: clamp(220px, 52vw, 360px) !important;
+  }
+  .pc-nav-btn {
+    width: 32px !important; height: 32px !important;
+    left: 8px !important;
+  }
+  .pc-nav-btn-next {
+    left: auto !important; right: 8px !important;
+  }
+}
+
+/* ── Small phones (≤480px) ──────────────────────────────────── */
+@media (max-width: 480px) {
+  .section { padding: 48px 0; }
+  .section-header { margin-bottom: 24px; }
+  .section-header h2 { font-size: 1.7rem; }
+  .section-header p { font-size: 0.85rem; }
+
+  .navbar { padding: 10px 4%; }
+  .nav-logo { font-size: 1.1rem; }
+  .mobile-nav-drawer { top: 54px; }
+
+  /* Hero — single column tight */
+  .hero-stats { flex-wrap: wrap; gap: 12px 0; }
+  .stat { padding: 0 10px; }
+  .stat-number { font-size: 1.6rem; }
+
+  /* Gallery — single column */
+  .vg-grid { grid-template-columns: 1fr !important; gap: 8px !important; }
+
+  /* About */
+  .about-headline { font-size: 1.75rem !important; }
+
+  /* Footer */
+  .footer-v2-headline { font-size: clamp(2rem, 10vw, 3rem) !important; }
+
+  /* Cards */
+  .vg-card-label-name { font-size: 0.6rem; }
+  .vg-card-label-year { font-size: 0.52rem; }
+}
+
