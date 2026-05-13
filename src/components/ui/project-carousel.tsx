@@ -279,16 +279,19 @@ export function ProjectCarousel({ title, venue, src, onClose }: Props) {
         }
         @media (max-width: 768px) {
           .pc-modal-overlay {
-            padding: 0 !important;
-            align-items: flex-end !important;
+            padding: 12px !important;
+            align-items: center !important;
+            justify-content: center !important;
           }
           .pc-modal-inner {
-            border-radius: 20px 20px 0 0 !important;
+            border-radius: 12px !important;
             max-width: 100% !important;
             width: 100% !important;
+            max-height: 90vh;
+            overflow-y: auto;
           }
           .pc-modal-image {
-            height: clamp(220px, 56vw, 380px) !important;
+            height: clamp(200px, 52vw, 320px) !important;
           }
           .pc-nav-btn {
             width: 32px !important;

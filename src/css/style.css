@@ -4629,16 +4629,6 @@ a {
   .footer-v2-link { padding: 18px 0; }
   .footer-v2-link-value { font-size: 0.78rem; }
 
-  /* Project carousel — full-width sheet on mobile */
-  .pc-modal-overlay { padding: 0 !important; align-items: flex-end !important; }
-  .pc-modal-inner {
-    border-radius: 20px 20px 0 0 !important;
-    max-width: 100% !important;
-    width: 100% !important;
-  }
-  .pc-modal-image {
-    height: clamp(220px, 52vw, 360px) !important;
-  }
   .pc-nav-btn {
     width: 32px !important; height: 32px !important;
     left: 8px !important;
