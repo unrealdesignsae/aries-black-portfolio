@@ -2411,6 +2411,39 @@ a {
   transform: translate(-50%, -50%) scale(1);
 }
 
+/* Card title bar — slides up from bottom on hover */
+.vg-card-title-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 5;
+  pointer-events: none;
+}
+.vg-card-title-bar--vis {
+  opacity: 1;
+  transform: translateY(0);
+}
+.vg-card-title-text {
+  font-family: var(--font-body, 'Outfit', sans-serif);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #fff;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Subtle scan-line decorative accent */
 .vg-scan-line {
   position: absolute;
@@ -2664,19 +2697,34 @@ a {
   outline-offset: 2px;
 }
 
-/* Counter */
+/* Counter + title */
 .vg-player-counter {
   position: absolute;
   top: 16px; left: 16px;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.35);
-  letter-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   z-index: 20;
   opacity: 0;
   transition: opacity 0.28s;
 }
 .vg-player-counter.vis { opacity: 1; }
+
+.vg-player-title {
+  font-family: var(--font-body, 'Outfit', sans-serif);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+.vg-player-counter-num {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 2px;
+}
 
 /* Prev / Next — already 44×44px ✓ */
 .vg-player-nav {
