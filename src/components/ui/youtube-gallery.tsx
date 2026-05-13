@@ -18,13 +18,12 @@ const VIDEOS: YTVideo[] = [
   { id: 'OxgPWGVQItE', title: 'Imtiaz Coca-Cola Arena',      year: '2024' },
 ]
 
-// Fallback chain — 0.jpg is always a real video frame, never a gray placeholder
+// hqdefault.jpg always returns a real frame for any public video (never a gray placeholder).
+// maxresdefault.jpg is skipped — it returns HTTP 200 with a gray image when unavailable,
+// which means onError never fires and the fallback chain stalls.
 const FALLBACKS = [
-  (id: string) => `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
   (id: string) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
   (id: string) => `https://img.youtube.com/vi/${id}/mqdefault.jpg`,
-  (id: string) => `https://img.youtube.com/vi/${id}/1.jpg`,
-  (id: string) => `https://img.youtube.com/vi/${id}/2.jpg`,
   (id: string) => `https://img.youtube.com/vi/${id}/0.jpg`,
 ]
 
