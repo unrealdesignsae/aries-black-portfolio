@@ -26,8 +26,7 @@ html {
 }
 
 body {
-    /* background provided by the fixed Three.js gradient canvas */
-    background-color: transparent;
+    background-color: var(--bg-color);
     color: var(--text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
