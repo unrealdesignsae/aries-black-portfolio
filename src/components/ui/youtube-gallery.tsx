@@ -9,23 +9,27 @@ interface YTVideo {
 }
 
 const VIDEOS: YTVideo[] = [
-  { id: 'PCqxjF6C2mI', title: 'AlQadsiah Festival',          year: '2025' },
+  { id: 'PCqxjF6C2mI', title: 'Qadsiah Festival',            year: '2025' },
   { id: 'fGi3B30yBR0', title: 'AlUla Desert Polo',           year: '2025' },
-  { id: 'GfA8L693FNs', title: 'AlFursan',                    year: '2025' },
+  { id: 'GfA8L693FNs', title: 'AlFursan Entourage',          year: '2025' },
   { id: '5iwd5Mgpm1Q', title: 'Omniyat Orla Launch',         year: '2024' },
-  { id: 'aH5qIUq-ZG0', title: 'Roshn',                       year: '2025' },
+  { id: 'aH5qIUq-ZG0', title: 'Roshn Entourage',             year: '2025' },
   { id: 'memB01oIa-U', title: 'Piaget Watches and Wonders',  year: '2024' },
+  { id: 'OxgPWGVQItE', title: 'Imtiaz Coca-Cola Arena',      year: '2024' },
 ]
 
+const FALLBACKS = ['maxresdefault', 'sddefault', 'hqdefault', 'mqdefault']
+
 function ThumbImage({ id, title }: { id: string; title: string }) {
-  const [src, setSrc] = useState(`https://img.youtube.com/vi/${id}/maxresdefault.jpg`)
+  const [attempt, setAttempt] = useState(0)
+  const quality = FALLBACKS[attempt]
   return (
     <img
-      src={src}
+      src={`https://img.youtube.com/vi/${id}/${quality}.jpg`}
       alt={title}
       className="yt-thumb-img"
       loading="lazy"
-      onError={() => setSrc(`https://img.youtube.com/vi/${id}/hqdefault.jpg`)}
+      onError={() => { if (attempt < FALLBACKS.length - 1) setAttempt(a => a + 1) }}
     />
   )
 }
