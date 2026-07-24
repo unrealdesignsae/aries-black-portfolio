@@ -43,6 +43,8 @@ function ThumbImage({ id, title }: { id: string; title: string }) {
 
 export function YouTubeGallery() {
   const [active, setActive] = useState(0)
+  // No autoplay on initial page load — only after the user picks a video.
+  const [userStarted, setUserStarted] = useState(false)
   const video = VIDEOS[active]
 
   return (
@@ -53,7 +55,7 @@ export function YouTubeGallery() {
         <div className="yt-player-inner">
           <iframe
             key={video.id}
-            src={`https://www.youtube.com/embed/${video.id}?autoplay=1&rel=0&modestbranding=1`}
+            src={`https://www.youtube.com/embed/${video.id}?autoplay=${userStarted ? 1 : 0}&rel=0&modestbranding=1`}
             title={video.title}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
@@ -72,7 +74,7 @@ export function YouTubeGallery() {
           <button
             key={v.id}
             className={`yt-thumb-btn ${i === active ? 'yt-thumb-btn--active' : ''}`}
-            onClick={() => setActive(i)}
+            onClick={() => { setActive(i); setUserStarted(true) }}
             aria-label={v.title}
           >
             <ThumbImage id={v.id} title={v.title} />
