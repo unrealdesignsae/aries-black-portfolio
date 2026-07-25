@@ -1,11 +1,19 @@
+const path = require('path')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
+  // Absolute paths: content globs are resolved against process.cwd() by
+  // Tailwind, not this file's directory, so a dev server launched from a
+  // different working directory (e.g. a monorepo/tooling wrapper) silently
+  // matches nothing, emits no utilities, and layout built on Tailwind
+  // classes (like ScannerCardStream's `.relative`/`.absolute` positioning)
+  // breaks in dev only. __dirname makes resolution invocation-independent.
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    path.join(__dirname, 'pages/**/*.{ts,tsx}'),
+    path.join(__dirname, 'components/**/*.{ts,tsx}'),
+    path.join(__dirname, 'app/**/*.{ts,tsx}'),
+    path.join(__dirname, 'src/**/*.{ts,tsx}'),
   ],
   theme: {
     container: {

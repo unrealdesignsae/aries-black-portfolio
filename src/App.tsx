@@ -7,6 +7,7 @@ import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
 import { ScannerCardStream } from "@/components/ui/scanner-card-stream"
 import { ImageGallery } from "@/components/ui/image-gallery"
+import { ReelClip } from "@/components/ui/reel-clip"
 import { MapShowcase } from "@/components/ui/map-showcase"
 import { WebDesignShowcase } from "@/components/ui/web-design-showcase"
 import { LogoTimeline } from "@/components/ui/logo-timeline"
@@ -170,6 +171,7 @@ function App() {
         <div className="nav-logo">AB.</div>
         <div className="nav-links">
           <a href="#about" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="About" /></a>
+          <a href="#rendering-realtime" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Real-Time" /></a>
           <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Portfolio" /></a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Live" /></a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="3D Work" /></a>
@@ -219,6 +221,7 @@ function App() {
       {mobileNavOpen && (
         <div className="mobile-nav-drawer">
           <a href="#about" onClick={() => setMobileNavOpen(false)}>About</a>
+          <a href="#rendering-realtime" onClick={() => setMobileNavOpen(false)}>Rendering &amp; Real-Time</a>
           <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}>Work Portfolio</a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}>Live Work</a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}>Visualizations</a>
@@ -298,11 +301,35 @@ function App() {
         </div>
       </section>
 
+      {/* ── RENDERING & REAL-TIME ── */}
+      <section id="rendering-realtime" className="section portfolio-section">
+        <div className="container">
+          <div className="reel-layout">
+            <div className="section-header reel-copy reveal">
+              <span className="section-eyebrow">02 / In Motion</span>
+              <h2>Rendering, <em>Real-Time.</em></h2>
+              <p>Photoreal video rendering and real-time 3D are the backbone of the work — from cinematic look development and lighting to interactive Unreal Engine 5 environments that run live on-site, not just as pre-rendered footage.</p>
+              <p>A core piece of that pipeline is DMX-driven lighting inside UE5 — mapping real fixtures, cues, and consoles to a live scene so what runs on stage and what's rendered on screen are lit by the same show file.</p>
+              <p>This clip moves through stage concepts, architectural visualization, and real-time builds delivered across the UAE and Saudi Arabia this year, each carried through from block-out to final render in-house.</p>
+              <ul className="reel-meta">
+                <li><span>Engine</span>Unreal Engine 5 · DMX / Art-Net</li>
+                <li><span>Pipeline</span>3ds Max · V-Ray · After Effects</li>
+                <li><span>Format</span>Vertical, real-time capture</li>
+              </ul>
+            </div>
+
+            <div className="reel-media reveal">
+              <ReelClip />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── WORK PORTFOLIO ── */}
       <section id="work-portfolio" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">02 / Work Portfolio</span>
+            <span className="section-eyebrow">03 / Work Portfolio</span>
             <h2>Event <em>Portfolio</em></h2>
             <p>62 luxury brand activations, product launches, and high-profile events delivered across the UAE and beyond.</p>
           </div>
@@ -317,7 +344,7 @@ function App() {
       <section id="live-work" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">03 / Live Production</span>
+            <span className="section-eyebrow">04 / Live Production</span>
             <h2>On-Site <em>Footage</em></h2>
             <p>Real event footage from productions delivered across the region.</p>
           </div>
@@ -331,7 +358,7 @@ function App() {
       <section id="portfolio" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">04 / Visualizations</span>
+            <span className="section-eyebrow">05 / Visualizations</span>
             <h2>Featured <em>Visualizations</em></h2>
             <p>Curated archive of architectural visualizations, immersive stage designs, and real-time renders.</p>
           </div>
@@ -369,7 +396,7 @@ function App() {
       <section id="interactive-map" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">05 / Interactive</span>
+            <span className="section-eyebrow">06 / Interactive</span>
             <h2>Explore the <em>360&deg; Map</em></h2>
             <p>A fully interactive masterplan, built from real render data, every marker opens a 360&deg; view of the community.</p>
           </div>
@@ -383,7 +410,7 @@ function App() {
       <section id="web-design" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">06 / Web Design</span>
+            <span className="section-eyebrow">07 / Web Design</span>
             <h2>Website <em>Design</em></h2>
             <p>A few of the full websites I've designed and built end to end, click a card to visit the live site.</p>
           </div>
@@ -397,7 +424,7 @@ function App() {
       <section id="software-arsenal" className="section" style={{ padding: '5rem 0 2rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">07 / Tools</span>
+            <span className="section-eyebrow">08 / Tools</span>
             <h2>Software <em>Arsenal</em></h2>
             <p>Every tool in my workflow, organised by discipline — from photorealistic rendering to real-time worlds and agentic AI pipelines.</p>
           </div>
@@ -411,7 +438,7 @@ function App() {
       <section id="expertise" className="section dark-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">08 / Expertise</span>
+            <span className="section-eyebrow">09 / Expertise</span>
             <h2>Core <em>Disciplines</em></h2>
             <p>A decade of precision across every pillar of visual production — from photorealistic renders to real-time worlds and AI-driven pipelines.</p>
           </div>
@@ -448,7 +475,7 @@ function App() {
       <section id="ai-workflows" className="section" style={{ padding: '5rem 0 4rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">09 / AI</span>
+            <span className="section-eyebrow">10 / AI</span>
             <h2>Agentic AI for <em>Designers</em></h2>
             <p>Beyond tools — these are autonomous workflows. AI agents that generate, render, animate, and iterate at machine speed, compressing weeks of production into hours.</p>
           </div>
@@ -501,7 +528,7 @@ function App() {
       <section id="experience" className="section experience-section">
         <div className="container">
           <div className="section-header center reveal">
-            <span className="section-eyebrow">10 / Journey</span>
+            <span className="section-eyebrow">11 / Journey</span>
             <h2>Professional <em>Journey</em></h2>
           </div>
 
