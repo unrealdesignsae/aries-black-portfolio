@@ -7,6 +7,8 @@ import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
 import { ScannerCardStream } from "@/components/ui/scanner-card-stream"
 import { ImageGallery } from "@/components/ui/image-gallery"
+import { MapShowcase } from "@/components/ui/map-showcase"
+import { WebDesignShowcase } from "@/components/ui/web-design-showcase"
 import { LogoTimeline } from "@/components/ui/logo-timeline"
 import type { LogoItem } from "@/components/ui/logo-timeline"
 import {
@@ -171,6 +173,8 @@ function App() {
           <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Portfolio" /></a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Live" /></a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="3D Work" /></a>
+          <a href="#interactive-map" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Map" /></a>
+          <a href="#web-design" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Web" /></a>
           <a href="#software-arsenal" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Tools" /></a>
           <a href="#expertise" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Expertise" /></a>
           <a href="#ai-workflows" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="AI" /></a>
@@ -218,6 +222,8 @@ function App() {
           <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}>Work Portfolio</a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}>Live Work</a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}>Visualizations</a>
+          <a href="#interactive-map" onClick={() => setMobileNavOpen(false)}>Interactive Map</a>
+          <a href="#web-design" onClick={() => setMobileNavOpen(false)}>Web Design</a>
           <a href="#software-arsenal" onClick={() => setMobileNavOpen(false)}>Tools</a>
           <a href="#expertise" onClick={() => setMobileNavOpen(false)}>Expertise</a>
           <a href="#ai-workflows" onClick={() => setMobileNavOpen(false)}>AI Workflows</a>
@@ -359,11 +365,39 @@ function App() {
         </div>
       </section>
 
+      {/* ── INTERACTIVE MAP ── */}
+      <section id="interactive-map" className="section portfolio-section">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="section-eyebrow">05 / Interactive</span>
+            <h2>Explore the <em>360&deg; Map</em></h2>
+            <p>A fully interactive masterplan, built from real render data, every marker opens a 360&deg; view of the community.</p>
+          </div>
+          <div className="reveal">
+            <MapShowcase />
+          </div>
+        </div>
+      </section>
+
+      {/* ── WEB DESIGN ── */}
+      <section id="web-design" className="section portfolio-section">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="section-eyebrow">06 / Web Design</span>
+            <h2>Website <em>Design</em></h2>
+            <p>A few of the full websites I've designed and built end to end, click a card to visit the live site.</p>
+          </div>
+          <div className="reveal">
+            <WebDesignShowcase />
+          </div>
+        </div>
+      </section>
+
       {/* ── SOFTWARE ARSENAL ── */}
       <section id="software-arsenal" className="section" style={{ padding: '5rem 0 2rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">05 / Tools</span>
+            <span className="section-eyebrow">07 / Tools</span>
             <h2>Software <em>Arsenal</em></h2>
             <p>Every tool in my workflow, organised by discipline — from photorealistic rendering to real-time worlds and agentic AI pipelines.</p>
           </div>
@@ -377,7 +411,7 @@ function App() {
       <section id="expertise" className="section dark-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">06 / Expertise</span>
+            <span className="section-eyebrow">08 / Expertise</span>
             <h2>Core <em>Disciplines</em></h2>
             <p>A decade of precision across every pillar of visual production — from photorealistic renders to real-time worlds and AI-driven pipelines.</p>
           </div>
@@ -414,7 +448,7 @@ function App() {
       <section id="ai-workflows" className="section" style={{ padding: '5rem 0 4rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">07 / AI</span>
+            <span className="section-eyebrow">09 / AI</span>
             <h2>Agentic AI for <em>Designers</em></h2>
             <p>Beyond tools — these are autonomous workflows. AI agents that generate, render, animate, and iterate at machine speed, compressing weeks of production into hours.</p>
           </div>
@@ -467,7 +501,7 @@ function App() {
       <section id="experience" className="section experience-section">
         <div className="container">
           <div className="section-header center reveal">
-            <span className="section-eyebrow">08 / Journey</span>
+            <span className="section-eyebrow">10 / Journey</span>
             <h2>Professional <em>Journey</em></h2>
           </div>
 

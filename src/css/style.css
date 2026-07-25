@@ -4668,3 +4668,249 @@ a {
   .vg-card-label-year { font-size: 0.52rem; }
 }
 
+/* ==== Interactive Map Showcase ==== */
+.map-showcase {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.map-showcase:hover {
+  border-color: rgba(0,229,255,0.35);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(0,229,255,0.25);
+  transform: translateY(-4px);
+}
+
+.map-showcase-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.map-showcase:hover .map-showcase-img {
+  transform: scale(1.045);
+}
+
+.map-showcase-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.08) 28%, rgba(5,5,5,0.12) 60%, rgba(5,5,5,0.72) 100%);
+}
+
+.map-showcase-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: rgba(10,10,10,0.55);
+  border: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(0,229,255,0.95);
+}
+
+.map-showcase-button {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-showcase-button-ring {
+  position: absolute;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.35);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.map-showcase:hover .map-showcase-button-ring {
+  opacity: 1;
+  transform: scale(1);
+  animation: mapPulse 1.8s ease-out infinite;
+}
+
+.map-showcase-button-core {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border-radius: 999px;
+  background: rgba(10,10,10,0.6);
+  border: 1px solid rgba(255,255,255,0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  transition: background 0.35s ease, border-color 0.35s ease, transform 0.35s ease;
+}
+
+.map-showcase:hover .map-showcase-button-core {
+  background: rgba(0,229,255,0.16);
+  border-color: rgba(0,229,255,0.55);
+  transform: scale(1.05);
+}
+
+@keyframes mapPulse {
+  0% { box-shadow: 0 0 0 0 rgba(0,229,255,0.35); }
+  100% { box-shadow: 0 0 0 22px rgba(0,229,255,0); }
+}
+
+@media (max-width: 768px) {
+  .map-showcase { aspect-ratio: 4 / 5; border-radius: 14px; }
+  .map-showcase-button-core { padding: 13px 22px; font-size: 0.8rem; }
+  .map-showcase-button-ring { width: 74px; height: 74px; }
+  .map-showcase-tag { top: 14px; left: 14px; font-size: 0.6rem; padding: 6px 11px; }
+}
+
+/* ==== Web Design Showcase ==== */
+.wds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.wds-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  border-radius: 16px;
+  transition: transform 0.35s ease;
+}
+
+.wds-card:hover { transform: translateY(-4px); }
+
+.wds-card-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: 16px;
+  background: #0d0d0d;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.wds-card:hover .wds-card-media {
+  border-color: rgba(0,229,255,0.35);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,229,255,0.25);
+}
+
+.wds-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  animation: wdsCycle 9s ease-in-out infinite;
+}
+
+.wds-card:hover .wds-frame { animation-play-state: paused; }
+
+.wds-frame:nth-child(1) { animation-delay: 0s; }
+.wds-frame:nth-child(2) { animation-delay: 3s; }
+.wds-frame:nth-child(3) { animation-delay: 6s; }
+
+@keyframes wdsCycle {
+  0%   { opacity: 0; transform: scale(1); }
+  2%   { opacity: 1; }
+  30%  { opacity: 1; transform: scale(1.055); }
+  36%  { opacity: 0; transform: scale(1.055); }
+  100% { opacity: 0; transform: scale(1.055); }
+}
+
+.wds-card-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(5,5,5,0.85) 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.wds-card:hover .wds-card-scrim { opacity: 1; }
+
+.wds-visit {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0,229,255,0.16);
+  border: 1px solid rgba(0,229,255,0.5);
+  color: #fff;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.wds-card:hover .wds-visit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.wds-card-label { display: flex; flex-direction: column; gap: 4px; padding: 0 2px; }
+
+.wds-card-label h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.wds-card:hover .wds-card-label h3 { color: rgba(0,229,255,0.9); }
+
+.wds-card-label p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.wds-card-tag {
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0,229,255,0.75);
+  margin-top: 2px;
+}
+
+@media (max-width: 768px) {
+  .wds-grid { grid-template-columns: 1fr; gap: 18px; }
+  .wds-visit { opacity: 1; transform: translateY(0); }
+}
+
