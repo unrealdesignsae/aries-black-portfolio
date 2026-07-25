@@ -3,6 +3,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { AnimatedTiles } from "@/components/ui/animated-tiles"
 import { VideoGallery } from "@/components/ui/video-gallery"
 import { YouTubeGallery } from "@/components/ui/youtube-gallery"
+import { Showreel } from "@/components/ui/showreel"
 import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
 import { ScannerCardStream } from "@/components/ui/scanner-card-stream"
@@ -294,6 +295,19 @@ function App() {
               <p>Based in Dubai, I work across the full creative and technical pipeline — from concept renders and architectural visualization to stage design and Unreal Engine 5 productions. I've delivered work for over 50 brands globally, including TAG Heuer, Montblanc, Richard Mille, Warner Bros, and high-profile government events including the World Government Summit and G20 Saudi Arabia.</p>
               <p>My workflow increasingly incorporates AI tools for generation, animation, and automation — keeping production timelines lean without compromising the quality of the final output.</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2026 SHOWREEL ── */}
+      <section id="showreel" className="section showreel-section">
+        <div className="container">
+          <div className="section-header center reveal">
+            <span className="section-eyebrow">Showreel</span>
+            <h2>2026 <em>Showreel</em></h2>
+          </div>
+          <div className="reveal">
+            <Showreel />
           </div>
         </div>
       </section>
