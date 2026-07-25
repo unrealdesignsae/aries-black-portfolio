@@ -5055,7 +5055,17 @@ a {
   .reel-meta li { flex-direction: column; gap: 3px; text-align: center; }
   .reel-meta li span { flex: none; }
   .reel-media { justify-content: center; }
-  .reel-clip { align-items: center; }
-  .reel-clip-frame { height: min(62vh, 480px); }
+  .reel-clip { align-items: center; width: 100%; }
+  .reel-clip-frame {
+    /* Width-driven on mobile, not height/vh — a 9:16 box sized from height
+       leaves wide dead margins on a narrow, tall phone screen. Sizing from
+       width instead fills the available column properly. */
+    width: min(100%, 420px);
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .reel-clip-frame { width: 100%; }
 }
 
