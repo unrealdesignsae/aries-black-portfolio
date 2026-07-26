@@ -5,12 +5,11 @@ import { R2_CDN } from '../../lib/cdn'
 
 const PROJECT_FILES = [
   'video_2.mp4',  'video_3.mp4',  'video_4.mp4',
-  'video_5.mp4',  'video_6.mp4',
+  'video_5.mp4',
   'video_9.mp4',  'video_10.mp4', 'video_11.mp4', 'video_12.mp4',
-  'video_13.mp4', 'video_14.mp4',
-  'video_17.mp4', 'video_20.mp4',
-  'video_21.mp4', 'video_23.mp4', 'video_24.mp4',
-  'video_28.mp4',
+  'video_13.mp4',
+  'video_20.mp4',
+  'video_23.mp4', 'video_24.mp4',
 ]
 
 const PROJECTS: { name: string; year: string }[] = [
@@ -18,19 +17,14 @@ const PROJECTS: { name: string; year: string }[] = [
   { name: 'Imtiaz Coca-Cola Arena',      year: '2024' },
   { name: 'Roshn Cup Final Ceremony',    year: '2026' },
   { name: 'Montblanc Event',             year: '2023' },
-  { name: 'Omniyat Launch Event',        year: '2024' },
   { name: 'Hotel Design South Africa',   year: '2024' },
   { name: 'Kings Cup Final',             year: '2026' },
   { name: 'Samurai Cinematic Scene',     year: '2025' },
   { name: 'AlQadsiah Festival',          year: '2026' },
   { name: 'Burj Al Arab NYE',            year: '2024' },
-  { name: 'Piaget Watches & Wonders',    year: '2024' },
-  { name: 'NGSC',                        year: '2026' },
   { name: 'Imtiaz Launching Event',      year: '2024' },
-  { name: 'Omniyat Lana Opening',        year: '2024' },
   { name: 'AlQadsiah Event',             year: '2025' },
   { name: 'Residential Building AD',     year: '2024' },
-  { name: 'Roshn League Final Ceremony', year: '2025' },
 ]
 
 // ── Poster capture queue ──────────────────────────────────────────────────────
