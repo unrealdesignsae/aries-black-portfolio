@@ -6,10 +6,11 @@ import { YouTubeGallery } from "@/components/ui/youtube-gallery"
 import profileImg from "@/assets/profile.png"
 import { ScrambleHover } from "@/components/ui/music-portfolio"
 import { ScannerCardStream } from "@/components/ui/scanner-card-stream"
-import { ImageGallery } from "@/components/ui/image-gallery"
+import { ODEventShowcase } from "@/components/ui/od-event-showcase"
 import { ReelClip } from "@/components/ui/reel-clip"
 import { MapShowcase } from "@/components/ui/map-showcase"
 import { WebDesignShowcase } from "@/components/ui/web-design-showcase"
+import { SelectedProjects } from "@/components/ui/selected-projects"
 import { LogoTimeline } from "@/components/ui/logo-timeline"
 import type { LogoItem } from "@/components/ui/logo-timeline"
 import {
@@ -172,8 +173,9 @@ function App() {
         <div className="nav-links">
           <a href="#about" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="About" /></a>
           <a href="#rendering-realtime" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Real-Time" /></a>
-          <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Portfolio" /></a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Live" /></a>
+          <a href="#selected-projects" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Entourage" /></a>
+          <a href="#od-event" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="OD Event" /></a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="3D Work" /></a>
           <a href="#interactive-map" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Map" /></a>
           <a href="#web-design" onClick={() => setMobileNavOpen(false)}><ScrambleHover text="Web" /></a>
@@ -222,8 +224,9 @@ function App() {
         <div className="mobile-nav-drawer">
           <a href="#about" onClick={() => setMobileNavOpen(false)}>About</a>
           <a href="#rendering-realtime" onClick={() => setMobileNavOpen(false)}>Rendering &amp; Real-Time</a>
-          <a href="#work-portfolio" onClick={() => setMobileNavOpen(false)}>Work Portfolio</a>
           <a href="#live-work" onClick={() => setMobileNavOpen(false)}>Live Work</a>
+          <a href="#selected-projects" onClick={() => setMobileNavOpen(false)}>Work with Entourage</a>
+          <a href="#od-event" onClick={() => setMobileNavOpen(false)}>Work with OD Event</a>
           <a href="#portfolio" onClick={() => setMobileNavOpen(false)}>Visualizations</a>
           <a href="#interactive-map" onClick={() => setMobileNavOpen(false)}>Interactive Map</a>
           <a href="#web-design" onClick={() => setMobileNavOpen(false)}>Web Design</a>
@@ -269,10 +272,16 @@ function App() {
             <StatItem value={20} label={<>Mega Events<br />Delivered</>} />
           </div>
 
-          <a href="#portfolio" className="cta-button primary slide-up-delay-2">
-            <ScrambleHover text="Explore My Work" />
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
-          </a>
+          <div className="hero-cta-row">
+            <a href="#portfolio" className="cta-button primary slide-up-delay-2">
+              <ScrambleHover text="Explore My Work" />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+            </a>
+            <a href="/ARIES-BLACK-CV.pdf" download="Aries-Black-CV.pdf" className="cta-button ghost slide-up-delay-2">
+              <ScrambleHover text="Download CV" />
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </a>
+          </div>
         </div>
       </header>
 
@@ -325,26 +334,11 @@ function App() {
         </div>
       </section>
 
-      {/* ── WORK PORTFOLIO ── */}
-      <section id="work-portfolio" className="section portfolio-section">
-        <div className="container">
-          <div className="section-header reveal">
-            <span className="section-eyebrow">03 / Work Portfolio</span>
-            <h2>Event <em>Portfolio</em></h2>
-            <p>62 luxury brand activations, product launches, and high-profile events delivered across the UAE and beyond.</p>
-          </div>
-
-          <div className="reveal">
-            <ImageGallery />
-          </div>
-        </div>
-      </section>
-
       {/* ── YOUTUBE / LIVE PRODUCTION ── */}
       <section id="live-work" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">04 / Live Production</span>
+            <span className="section-eyebrow">03 / Live Production</span>
             <h2>On-Site <em>Footage</em></h2>
             <p>Real event footage from productions delivered across the region.</p>
           </div>
@@ -354,11 +348,50 @@ function App() {
         </div>
       </section>
 
+      {/* ── WORK WITH ENTOURAGE ── */}
+      <section id="selected-projects" className="section portfolio-section">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="section-eyebrow">04 / Work with Entourage</span>
+            <h2>Work with <em>Entourage</em></h2>
+            <p>
+              entourage international is a Middle East creative-experiential powerhouse — the event and advertising
+              agency behind the World Government Summit, G20 Saudi Arabia, and large-scale championship ceremonies
+              across the region. See more of their work at{" "}
+              <a href="https://entourageintl.com" target="_blank" rel="noopener noreferrer">entourageintl.com</a>.
+            </p>
+            <p>I've partnered with their production team for two years on show content and live-event visuals. Five case studies below — click a card for the full story.</p>
+          </div>
+          <div className="reveal">
+            <SelectedProjects />
+          </div>
+        </div>
+      </section>
+
+      {/* ── WORK WITH OD EVENT ── */}
+      <section id="od-event" className="section portfolio-section">
+        <div className="container">
+          <div className="section-header reveal">
+            <span className="section-eyebrow">05 / Work with OD Event</span>
+            <h2>Work with <em>OD Event</em></h2>
+            <p>
+              Two years on-site with OD Event, a Paris &amp; Dubai brand-experience agency delivering bespoke
+              activations and retail experiences for luxury houses since 2007. See more of their work at{" "}
+              <a href="https://www.odevent.com" target="_blank" rel="noopener noreferrer">odevent.com</a>.
+            </p>
+          </div>
+
+          <div className="reveal">
+            <ODEventShowcase />
+          </div>
+        </div>
+      </section>
+
       {/* ── VISUALIZATIONS ── */}
       <section id="portfolio" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">05 / Visualizations</span>
+            <span className="section-eyebrow">06 / Visualizations</span>
             <h2>Featured <em>Visualizations</em></h2>
             <p>Curated archive of architectural visualizations, immersive stage designs, and real-time renders.</p>
           </div>
@@ -385,6 +418,20 @@ function App() {
                   <span className="client-name">Dubai Holding</span>
                   <span className="client-name">G20 Saudi Arabia</span>
                   <span className="client-name">Ministry of Transport</span>
+                  <span className="client-name">Cartier</span>
+                  <span className="client-name">BVLGARI</span>
+                  <span className="client-name">Piaget</span>
+                  <span className="client-name">Louis Vuitton</span>
+                  <span className="client-name">YSL Beauté</span>
+                  <span className="client-name">Guerlain</span>
+                  <span className="client-name">Giorgio Armani</span>
+                  <span className="client-name">Roger Dubuis</span>
+                  <span className="client-name">Chopard</span>
+                  <span className="client-name">Hermès</span>
+                  <span className="client-name">IWC</span>
+                  <span className="client-name">World Government Summit</span>
+                  <span className="client-name">Royal Commission for AlUla</span>
+                  <span className="client-name">Saudi Pro League</span>
                 </div>
               ))}
             </div>
@@ -396,7 +443,7 @@ function App() {
       <section id="interactive-map" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">06 / Interactive</span>
+            <span className="section-eyebrow">07 / Interactive</span>
             <h2>Explore the <em>360&deg; Map</em></h2>
             <p>A fully interactive masterplan, built from real render data, every marker opens a 360&deg; view of the community.</p>
           </div>
@@ -410,7 +457,7 @@ function App() {
       <section id="web-design" className="section portfolio-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">07 / Web Design</span>
+            <span className="section-eyebrow">08 / Web Design</span>
             <h2>Website <em>Design</em></h2>
             <p>A few of the full websites I've designed and built end to end, click a card to visit the live site.</p>
           </div>
@@ -421,10 +468,10 @@ function App() {
       </section>
 
       {/* ── SOFTWARE ARSENAL ── */}
-      <section id="software-arsenal" className="section" style={{ padding: '5rem 0 2rem', overflow: 'hidden' }}>
+      <section id="software-arsenal" className="section" style={{ padding: '5rem 0 4rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">08 / Tools</span>
+            <span className="section-eyebrow">09 / Tools</span>
             <h2>Software <em>Arsenal</em></h2>
             <p>Every tool in my workflow, organised by discipline — from photorealistic rendering to real-time worlds and agentic AI pipelines.</p>
           </div>
@@ -438,7 +485,7 @@ function App() {
       <section id="expertise" className="section dark-section">
         <div className="container">
           <div className="section-header reveal">
-            <span className="section-eyebrow">09 / Expertise</span>
+            <span className="section-eyebrow">10 / Expertise</span>
             <h2>Core <em>Disciplines</em></h2>
             <p>A decade of precision across every pillar of visual production — from photorealistic renders to real-time worlds and AI-driven pipelines.</p>
           </div>
@@ -475,7 +522,7 @@ function App() {
       <section id="ai-workflows" className="section" style={{ padding: '5rem 0 4rem', overflow: 'hidden' }}>
         <div className="container" style={{ marginBottom: '2.5rem' }}>
           <div className="section-header reveal">
-            <span className="section-eyebrow">10 / AI</span>
+            <span className="section-eyebrow">11 / AI</span>
             <h2>Agentic AI for <em>Designers</em></h2>
             <p>Beyond tools — these are autonomous workflows. AI agents that generate, render, animate, and iterate at machine speed, compressing weeks of production into hours.</p>
           </div>
@@ -528,7 +575,7 @@ function App() {
       <section id="experience" className="section experience-section">
         <div className="container">
           <div className="section-header center reveal">
-            <span className="section-eyebrow">11 / Journey</span>
+            <span className="section-eyebrow">12 / Journey</span>
             <h2>Professional <em>Journey</em></h2>
           </div>
 
