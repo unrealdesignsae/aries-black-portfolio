@@ -1,3 +1,7 @@
+import piagetActivation from "@/assets/od-event/piaget-activation.jpg"
+import burjAlArabNye from "@/assets/od-event/burj-al-arab-nye.jpg"
+import orlaLaunch from "@/assets/od-event/orla-launch.jpg"
+
 interface Photo {
   src: string
   alt: string
@@ -5,8 +9,8 @@ interface Photo {
 
 const PHOTOS: Photo[] = [
   {
-    src: "https://www.odevent.com/wp-content/uploads/2020/02/www.odevent.com-piaget-winterattantora-alula-ksa-2020-1.jpg",
-    alt: "Piaget Winter at Tantora exhibition pop-up, AlUla",
+    src: piagetActivation,
+    alt: "Piaget jungle-themed activation, Suntlight Journey",
   },
   {
     src: "https://www.odevent.com/wp-content/uploads/2019/11/www.odevent.com-tagheuer-porche-formulaechampionship-saudi-2019-1.jpg",
@@ -17,16 +21,16 @@ const PHOTOS: Photo[] = [
     alt: "Roger Dubuis light calligraphy activation, Dubai Mall",
   },
   {
-    src: "https://www.odevent.com/wp-content/uploads/2017/07/www.odevent.fr-cartier-pantheredecartier-launch-nikkibeach-dubai-1.jpg",
-    alt: "Cartier Panthère launch, Nikki Beach Dubai",
+    src: burjAlArabNye,
+    alt: "New Year's Eve fireworks, Burj Al Arab Dubai",
   },
   {
     src: "https://www.odevent.com/wp-content/uploads/2018/11/www.odevent.com-bvlgari-theexclussive-newmade-toorder-accessories-offering-1.jpg",
     alt: "BVLGARI The Exclusive accessories offering, BVLGARI Hotel Dubai",
   },
   {
-    src: "https://www.odevent.com/wp-content/uploads/2018/01/www.odevent.fr-louisvuitton-hardsided-ceodinner-dubai-mall-1.jpg",
-    alt: "Louis Vuitton Hard Sided CEO dinner, The Dubai Mall",
+    src: orlaLaunch,
+    alt: "Orla waterfront light show launch",
   },
 ]
 
