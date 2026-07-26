@@ -410,7 +410,18 @@ function App() {
                   <img className="client-logo" src="https://cdn.simpleicons.org/vodafone/white" alt="Vodafone" />
                   <img className="client-logo" src="https://cdn.simpleicons.org/figma/white" alt="Figma" />
                   <img className="client-logo" src="https://cdn.simpleicons.org/unrealengine/white" alt="Unreal Engine" />
-                  <span className="client-name">TAG Heuer</span>
+                  <img className="client-logo" src="/logos/tag-heuer.svg" alt="TAG Heuer" />
+                  <img className="client-logo" src="/logos/cartier.svg" alt="Cartier" />
+                  <img className="client-logo" src="/logos/bulgari.svg" alt="BVLGARI" />
+                  <img className="client-logo" src="/logos/piaget.svg" alt="Piaget" />
+                  <img className="client-logo" src="/logos/louis-vuitton.svg" alt="Louis Vuitton" />
+                  <img className="client-logo" src="/logos/ysl.svg" alt="YSL Beauté" />
+                  <img className="client-logo" src="/logos/guerlain.svg" alt="Guerlain" />
+                  <img className="client-logo" src="/logos/giorgio-armani.svg" alt="Giorgio Armani" />
+                  <img className="client-logo" src="/logos/roger-dubuis.svg" alt="Roger Dubuis" />
+                  <img className="client-logo" src="/logos/chopard.svg" alt="Chopard" />
+                  <img className="client-logo" src="/logos/hermes.svg" alt="Hermès" />
+                  <img className="client-logo" src="/logos/iwc.svg" alt="IWC" />
                   <span className="client-name">Montblanc</span>
                   <span className="client-name">Warner Bros</span>
                   <span className="client-name">Richard Mille</span>
@@ -418,17 +429,6 @@ function App() {
                   <span className="client-name">Dubai Holding</span>
                   <span className="client-name">G20 Saudi Arabia</span>
                   <span className="client-name">Ministry of Transport</span>
-                  <span className="client-name">Cartier</span>
-                  <span className="client-name">BVLGARI</span>
-                  <span className="client-name">Piaget</span>
-                  <span className="client-name">Louis Vuitton</span>
-                  <span className="client-name">YSL Beauté</span>
-                  <span className="client-name">Guerlain</span>
-                  <span className="client-name">Giorgio Armani</span>
-                  <span className="client-name">Roger Dubuis</span>
-                  <span className="client-name">Chopard</span>
-                  <span className="client-name">Hermès</span>
-                  <span className="client-name">IWC</span>
                   <span className="client-name">World Government Summit</span>
                   <span className="client-name">Royal Commission for AlUla</span>
                   <span className="client-name">Saudi Pro League</span>

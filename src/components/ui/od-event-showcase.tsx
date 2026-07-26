@@ -30,9 +30,24 @@ const PHOTOS: Photo[] = [
   },
 ]
 
-const CLIENTS = [
-  "Piaget", "Cartier", "BVLGARI", "TAG Heuer", "Louis Vuitton", "YSL Beauté",
-  "Guerlain", "Giorgio Armani", "Roger Dubuis", "Chopard", "Hermès", "IWC",
+interface ClientLogo {
+  name: string
+  src: string
+}
+
+const CLIENTS: ClientLogo[] = [
+  { name: "Piaget", src: "/logos/piaget.svg" },
+  { name: "Cartier", src: "/logos/cartier.svg" },
+  { name: "BVLGARI", src: "/logos/bulgari.svg" },
+  { name: "TAG Heuer", src: "/logos/tag-heuer.svg" },
+  { name: "Louis Vuitton", src: "/logos/louis-vuitton.svg" },
+  { name: "YSL Beauté", src: "/logos/ysl.svg" },
+  { name: "Guerlain", src: "/logos/guerlain.svg" },
+  { name: "Giorgio Armani", src: "/logos/giorgio-armani.svg" },
+  { name: "Roger Dubuis", src: "/logos/roger-dubuis.svg" },
+  { name: "Chopard", src: "/logos/chopard.svg" },
+  { name: "Hermès", src: "/logos/hermes.svg" },
+  { name: "IWC", src: "/logos/iwc.svg" },
 ]
 
 export function ODEventShowcase() {
@@ -47,7 +62,9 @@ export function ODEventShowcase() {
         <div className="ode-clients">
           <span className="ode-clients-label">Clients we've worked with</span>
           <div className="ode-clients-list">
-            {CLIENTS.map(c => <span key={c} className="ode-client-chip">{c}</span>)}
+            {CLIENTS.map(c => (
+              <img key={c.name} src={c.src} alt={c.name} loading="lazy" className="ode-client-logo" />
+            ))}
           </div>
         </div>
       </div>
