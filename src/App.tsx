@@ -313,16 +313,16 @@ function App() {
               <img className="client-logo" src="/logos/chopard.svg" alt="Chopard" />
               <img className="client-logo" src="/logos/hermes.svg" alt="Hermès" />
               <img className="client-logo" src="/logos/iwc.svg" alt="IWC" />
-              <span className="client-name">Montblanc</span>
-              <span className="client-name">Warner Bros</span>
-              <span className="client-name">Richard Mille</span>
-              <span className="client-name">Omniyat</span>
-              <span className="client-name">Dubai Holding</span>
-              <span className="client-name">G20 Saudi Arabia</span>
+              <img className="client-logo" src="/logos/montblanc.svg" alt="Montblanc" />
+              <img className="client-logo" src="/logos/warner-bros.svg" alt="Warner Bros" />
+              <img className="client-logo" src="/logos/richard-mille.svg" alt="Richard Mille" />
+              <img className="client-logo" src="/logos/omniyat.svg" alt="Omniyat" />
+              <img className="client-logo" src="/logos/dubai-holding.png" alt="Dubai Holding" />
+              <img className="client-logo" src="/logos/g20-saudi-arabia.svg" alt="G20 Saudi Arabia" />
               <span className="client-name">Ministry of Transport</span>
               <span className="client-name">World Government Summit</span>
-              <span className="client-name">Royal Commission for AlUla</span>
-              <span className="client-name">Saudi Pro League</span>
+              <img className="client-logo" src="/logos/royal-commission-alula.svg" alt="Royal Commission for AlUla" />
+              <img className="client-logo" src="/logos/saudi-pro-league.svg" alt="Saudi Pro League" />
             </div>
           ))}
         </div>
@@ -411,6 +411,9 @@ function App() {
                 <img src="/logos/al-qadsiah.svg" alt="Al Qadsiah FC" loading="lazy" className="client-logo-strip-img" />
                 <img src="/logos/royal-commission-alula.svg" alt="Royal Commission for AlUla" loading="lazy" className="client-logo-strip-img" />
                 <img src="/logos/ministry-of-sport.png" alt="Ministry of Sport, Saudi Arabia" loading="lazy" className="client-logo-strip-img" />
+                <img src="/logos/saudi-pro-league.svg" alt="Saudi Pro League" loading="lazy" className="client-logo-strip-img" />
+                <img src="/logos/richard-mille.svg" alt="Richard Mille" loading="lazy" className="client-logo-strip-img" />
+                <img src="/logos/g20-saudi-arabia.svg" alt="G20 Saudi Arabia" loading="lazy" className="client-logo-strip-img" />
               </div>
             </div>
           </div>
