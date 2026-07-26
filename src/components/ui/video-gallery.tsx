@@ -4,7 +4,7 @@ import { Play, Pause, X, ChevronLeft, ChevronRight, Volume2, VolumeX, Maximize2,
 import { R2_CDN } from '../../lib/cdn'
 
 const PROJECT_FILES = [
-  'video_1.mp4',  'video_2.mp4',  'video_3.mp4',  'video_4.mp4',
+  'video_2.mp4',  'video_3.mp4',  'video_4.mp4',
   'video_5.mp4',  'video_6.mp4',  'video_7.mp4',  'video_8.mp4',
   'video_9.mp4',  'video_10.mp4', 'video_11.mp4', 'video_12.mp4',
   'video_13.mp4', 'video_14.mp4', 'video_16.mp4',
@@ -14,7 +14,6 @@ const PROJECT_FILES = [
 ]
 
 const PROJECTS: { name: string; year: string }[] = [
-  { name: 'Kings Cup Festival',          year: '2025' },
   { name: 'Hakura Cinematic Scene',      year: '2025' },
   { name: 'Imtiaz Coca-Cola Arena',      year: '2024' },
   { name: 'Roshn Cup Final Ceremony',    year: '2026' },
