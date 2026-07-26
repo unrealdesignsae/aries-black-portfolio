@@ -59,11 +59,11 @@ export function ODEventShowcase() {
           visuals behind luxury launches for houses like Piaget, Cartier, BVLGARI, TAG Heuer and Louis Vuitton.
         </p>
 
-        <div className="ode-clients">
-          <span className="ode-clients-label">Clients we've worked with</span>
-          <div className="ode-clients-list">
+        <div className="client-logo-strip">
+          <span className="client-logo-strip-label">Clients we've worked with</span>
+          <div className="client-logo-strip-list">
             {CLIENTS.map(c => (
-              <img key={c.name} src={c.src} alt={c.name} loading="lazy" className="ode-client-logo" />
+              <img key={c.name} src={c.src} alt={c.name} loading="lazy" className="client-logo-strip-img" />
             ))}
           </div>
         </div>

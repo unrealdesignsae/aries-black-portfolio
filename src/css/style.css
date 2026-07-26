@@ -53,6 +53,19 @@ a {
     padding: 0 5%;
 }
 
+/* ==== Ambient pixel-grid background ==== */
+.pixel-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pixel-bg { display: none; }
+}
+
 .section {
     padding: 100px 0;
 }
@@ -5363,13 +5376,14 @@ a {
 
 .ode-copy p + p { margin-top: 14px; }
 
-.ode-clients {
+/* ── Shared client-logo strip (OD Event, Entourage) ── */
+.client-logo-strip {
   margin-top: 26px;
   padding-top: 22px;
   border-top: 1px solid rgba(255,255,255,0.09);
 }
 
-.ode-clients-label {
+.client-logo-strip-label {
   display: block;
   margin-bottom: 12px;
   font-family: 'SF Mono', 'Fira Code', monospace;
@@ -5379,14 +5393,14 @@ a {
   color: rgba(0,229,255,0.8);
 }
 
-.ode-clients-list {
+.client-logo-strip-list {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 26px 32px;
 }
 
-.ode-client-logo {
+.client-logo-strip-img {
   height: 26px;
   max-width: 110px;
   object-fit: contain;
@@ -5395,7 +5409,7 @@ a {
   transition: opacity 0.25s ease;
 }
 
-.ode-client-logo:hover { opacity: 1; }
+.client-logo-strip-img:hover { opacity: 1; }
 
 .ode-gallery {
   display: grid;
